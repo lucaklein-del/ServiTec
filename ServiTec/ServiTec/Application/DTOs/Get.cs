@@ -2,11 +2,21 @@
 
 namespace ServiTec.Application.DTOs
 {
+    public class CategoriaDTO
+    {
+        public int IdCategoria { get; set; }
+
+        public string Nom { get; set; } = null!;
+
+        public string? Descripcio { get; set; }
+    }
+
     public class ProducteDTO
     {
         public int IdProducte { get; set; }
         public string Nom { get; set; }
         public decimal Preu { get; set; }
+        public int IdCategoria { get; set; }
     }
 
     public class UsuariDTO

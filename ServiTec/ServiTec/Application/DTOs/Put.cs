@@ -1,5 +1,14 @@
 ﻿namespace ServiTec.Application.DTOs
 {
+    public class UpdateCategoriaDTO
+    {
+        public int PutIdCategoria { get; set; }
+
+        public string PutNom { get; set; } = null!;
+
+        public string? PutDescripcio { get; set; }
+    }
+
     public class UpdateProducteDTO
     {
         public int PutIdProducte { get; set; }

@@ -1,5 +1,14 @@
 ﻿namespace ServiTec.Application.DTOs
 {
+    public class CreateCategoriaDTO
+    {
+        public int PostIdCategoria { get; set; }
+
+        public string PostNom { get; set; } = null!;
+
+        public string? PostDescripcio { get; set; }
+    }
+
     public class CreateProducteDTO
     {
         public string PostNom { get; set; } = null!;

@@ -22,13 +22,13 @@
             android:id="@+id/btnVolver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#1E3A8A"
             android:text="← Volver"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:backgroundTint="#2563EB"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:background="#FFFFFF"
+            android:background="?android:attr/windowSplashScreenBackground"
             android:padding="8dp"
             tools:listitem="" />
 
@@ -94,6 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
+            android:background="?android:attr/windowSplashScreenBackground"
             android:padding="8dp"
             tools:listitem="" />
     </LinearLayout>

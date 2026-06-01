@@ -7,15 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.servitec_frontend.ui.PantallaPanell
 import com.example.servitec_frontend.R
-import com.example.servitec_frontend.data.model.Usuari
-import com.example.servitec_frontend.data.network.ApiService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class PantallaLogin : AppCompatActivity() {
     private val userRepository = UserRepository()
