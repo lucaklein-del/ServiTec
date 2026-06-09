@@ -27,6 +27,7 @@ class PantallaTaula : AppCompatActivity() {
     private lateinit var adapterCentre: ComandaAdapter
     private lateinit var tvTotalPreu: TextView
     private lateinit var btnEnviar : Button
+    private lateinit var bntSorir : Button
 
     private var totsElsProductes = listOf<Producte>()
     private val repository = MesaRepository()
@@ -40,6 +41,7 @@ class PantallaTaula : AppCompatActivity() {
 
         tvTotalPreu = findViewById(R.id.tvTotalPrecio)
         btnEnviar = findViewById(R.id.btnEnviar)
+        bntSorir = findViewById(R.id.btnVolver)
 
         // 1. Configuración del RecyclerView de Categorías (Izquierda)
         val rvCategories = findViewById<RecyclerView>(R.id.rvCategorias)
@@ -133,6 +135,10 @@ class PantallaTaula : AppCompatActivity() {
 
                 btnEnviar.isEnabled = true // Volvemos a activar el botón
             }
+        }
+
+        bntSorir.setOnClickListener{
+            finish()
         }
 
         // 4. Carga de datos desde tu Repositorio
