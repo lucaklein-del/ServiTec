@@ -2,6 +2,24 @@
 
 namespace ServiTec.Application.DTOs
 {
+    public class ComandaDTO
+    {
+        public int IdComanda { get; set; }
+
+        public DateTime DataCreacio { get; set; }
+
+        public string Estat { get; set; } = null!;
+
+        public decimal Total { get; set; }
+
+        public int IdTaula { get; set; }
+
+        public int IdUsuari
+        {
+            get; set;
+        }
+    }
+
     public class CategoriaDTO
     {
         public int IdCategoria { get; set; }

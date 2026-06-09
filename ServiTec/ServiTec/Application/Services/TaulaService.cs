@@ -48,9 +48,9 @@ namespace ServiTec.Services
         {
             var taula = new Taula
             {
-                Numero = dto.Numero,
-                Capacitat = dto.Capacitat,
-                Estat = dto.Estat
+                Numero = dto.PostNumero,
+                Capacitat = dto.PostCapacitat,
+                Estat = dto.PostEstat
             };
 
             _context.Taules.Add(taula);
@@ -72,9 +72,9 @@ namespace ServiTec.Services
             if (taula == null)
                 return false;
 
-            taula.Numero = dto.Numero;
-            taula.Capacitat = dto.Capacitat;
-            taula.Estat = dto.Estat;
+            taula.Numero = dto.PutNumero;
+            taula.Capacitat = dto.PutCapacitat;
+            taula.Estat = dto.PutEstat;
 
             await _context.SaveChangesAsync();
 

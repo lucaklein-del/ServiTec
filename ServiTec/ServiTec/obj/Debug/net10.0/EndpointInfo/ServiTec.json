@@ -179,6 +179,180 @@
         }
       }
     },
+    "/api/Comanda/llistar": {
+      "get": {
+        "tags": [
+          "Comanda"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comanda"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comanda"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comanda"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Comanda/buscar/{id}": {
+      "get": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuari"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuari"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuari"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Comanda/crear": {
+      "post": {
+        "tags": [
+          "Comanda"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateComandaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateComandaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateComandaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Comanda/actualitzar/{id}": {
+      "put": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateComandaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateComandaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateComandaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Comanda/eliminar/{id}": {
+      "delete": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Producte/llistar": {
       "get": {
         "tags": [
@@ -816,6 +990,45 @@
         },
         "additionalProperties": false
       },
+      "CreateComandaDTO": {
+        "type": "object",
+        "properties": {
+          "postEstat": {
+            "type": "string",
+            "nullable": true
+          },
+          "postIdTaula": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "postIdUsuari": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "postLinies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateLiniaComandaDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateLiniaComandaDTO": {
+        "type": "object",
+        "properties": {
+          "PostIdProducte": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PostQuantitat": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateProducteDTO": {
         "type": "object",
         "properties": {
@@ -844,15 +1057,15 @@
       "CreateTaulaDTO": {
         "type": "object",
         "properties": {
-          "numero": {
+          "postNumero": {
             "type": "integer",
             "format": "int32"
           },
-          "capacitat": {
+          "postCapacitat": {
             "type": "integer",
             "format": "int32"
           },
-          "estat": {
+          "postEstat": {
             "type": "boolean"
           }
         },
@@ -901,12 +1114,12 @@
             "type": "integer",
             "format": "int32"
           },
+          "idComandaNavigation": {
+            "$ref": "#/components/schemas/Comanda"
+          },
           "idProducte": {
             "type": "integer",
             "format": "int32"
-          },
-          "idComandaNavigation": {
-            "$ref": "#/components/schemas/Comanda"
           },
           "idProducteNavigation": {
             "$ref": "#/components/schemas/Producte"
@@ -1073,6 +1286,36 @@
         },
         "additionalProperties": false
       },
+      "UpdateComandaDTO": {
+        "type": "object",
+        "properties": {
+          "putIdComanda": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "putDataCreacio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "putEstat": {
+            "type": "string",
+            "nullable": true
+          },
+          "putTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "putIdTaula": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "putIdUsuari": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateProducteDTO": {
         "type": "object",
         "properties": {
@@ -1105,15 +1348,15 @@
       "UpdateTaulaDTO": {
         "type": "object",
         "properties": {
-          "numero": {
+          "putNumero": {
             "type": "integer",
             "format": "int32"
           },
-          "capacitat": {
+          "putCapacitat": {
             "type": "integer",
             "format": "int32"
           },
-          "estat": {
+          "putEstat": {
             "type": "boolean"
           }
         },
@@ -1186,6 +1429,9 @@
   "tags": [
     {
       "name": "Categoria"
+    },
+    {
+      "name": "Comanda"
     },
     {
       "name": "Producte"

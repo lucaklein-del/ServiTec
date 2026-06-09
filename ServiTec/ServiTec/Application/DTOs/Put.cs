@@ -1,5 +1,23 @@
 ﻿namespace ServiTec.Application.DTOs
 {
+    public class UpdateComandaDTO
+    {
+            public int PutIdComanda { get; set; }
+
+            public DateTime PutDataCreacio { get; set; }
+
+            public string PutEstat { get; set; } = null!;
+
+            public decimal PutTotal { get; set; }
+
+            public int PutIdTaula { get; set; }
+
+            public int PutIdUsuari
+        {
+                get; set;
+            }
+    }
+
     public class UpdateCategoriaDTO
     {
         public int PutIdCategoria { get; set; }
@@ -32,11 +50,11 @@
     {
         public class UpdateTaulaDTO
         {
-            public int Numero { get; set; }
+            public int PutNumero { get; set; }
 
-            public int Capacitat { get; set; }
+            public int PutCapacitat { get; set; }
 
-            public bool Estat { get; set; }
+            public bool PutEstat { get; set; }
         }
     }
 

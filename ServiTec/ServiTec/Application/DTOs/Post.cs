@@ -1,5 +1,24 @@
-﻿namespace ServiTec.Application.DTOs
+﻿using System.Text.Json.Serialization;
+
+namespace ServiTec.Application.DTOs
 {
+    public class CreateLiniaComandaDTO
+    {
+        [JsonPropertyName("PostIdProducte")]
+        public int PostIdProducte { get; set; }
+        [JsonPropertyName("PostQuantitat")]
+        public int PostQuantitat { get; set; }
+    }
+
+    public class CreateComandaDTO
+    {
+        public string PostEstat { get; set; } = null!;
+        public int PostIdTaula { get; set; }
+        public int PostIdUsuari { get; set; }
+        [JsonPropertyName("postLinies")]
+        public List<CreateLiniaComandaDTO> PostLinies { get; set; } = new List<CreateLiniaComandaDTO>();
+    }
+
     public class CreateCategoriaDTO
     {
         public int PostIdCategoria { get; set; }
@@ -19,19 +38,19 @@
     }
 
     public class CreateUsuariDTO
-        {
-            public string PostNomUsuari { get; set; } = null!;
-            public string PostContrasenya { get; set; } = null!;
-            public bool PostActiu { get; set; }
-            public bool PostAdmin { get; set; }
+    {
+        public string PostNomUsuari { get; set; } = null!;
+        public string PostContrasenya { get; set; } = null!;
+        public bool PostActiu { get; set; }
+        public bool PostAdmin { get; set; }
     }
 
     public class CreateTaulaDTO
     {
-        public int Numero { get; set; }
+        public int PostNumero { get; set; }
 
-        public int Capacitat { get; set; }
+        public int PostCapacitat { get; set; }
 
-        public bool Estat { get; set; }
+        public bool PostEstat { get; set; }
     }
 }

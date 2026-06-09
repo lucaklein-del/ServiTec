@@ -9,7 +9,9 @@ import com.example.servitec_frontend.R
 import com.example.servitec_frontend.data.model.Producte
 
 class ProductesAdapter(
-    private var llista: List<Producte>
+    private var llista: List<Producte>,
+    private val onProducteClick: (Producte) -> Unit
+
 ) : RecyclerView.Adapter<ProductesAdapter.ViewHolder>() {
     class ViewHolder(vista: View) : RecyclerView.ViewHolder(vista) {
         val tvNombre: TextView = vista.findViewById(R.id.tvNombreProducto)
@@ -25,6 +27,10 @@ class ProductesAdapter(
         val producto = llista[position]
         holder.tvNombre.text = producto.nom
         holder.tvPrecio.text = "${producto.preu}€"
+
+        holder.itemView.setOnClickListener {
+            onProducteClick(producto)
+        }
     }
 
     override fun getItemCount() = llista.size

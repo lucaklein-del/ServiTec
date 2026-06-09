@@ -9,13 +9,13 @@ namespace ServiTec.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class ComandaController : ControllerBase
     {
-        private readonly CategoriaService _categoriaService;
+        private readonly ComandaService _comandaService;
 
-        public CategoriaController(CategoriaService categoriaService)
+        public ComandaController(ComandaService ComandaService)
         {
-            _categoriaService = categoriaService;
+            _comandaService = ComandaService;
         }
 
         /// <brief>
@@ -25,120 +25,120 @@ namespace ServiTec.Controllers
         /// - El servei de categories ha d'estar operatiu.
         /// </pre>
         /// <post>
-        /// - Es retorna una col·lecció amb totes les categories registrades.
+        /// - Es retorna una col·lecció amb totes les comandes registrades.
         /// </post>
         /// <returns>
         /// 200 OK amb la llista de categories.
         /// </returns>
         [HttpGet("llistar")]
-        public async Task<ActionResult<IEnumerable<Categoria>>> LlistarCategoria()
+        public async Task<ActionResult<IEnumerable<Comanda>>> Llistarcomanda()
         {
-            var categorias = await _categoriaService.GetCategorias();
-            return Ok(categorias);
+            var comandas = await _comandaService.GetComandas();
+            return Ok(comandas);
         }
 
         /// <brief>
-        /// Cerca una categoria concreta a partir del seu identificador.
+        /// Cerca una comanda concreta a partir del seu identificador.
         /// </brief>
         /// <pre>
         /// - L'identificador proporcionat ha de ser vàlid.
         /// </pre>
         /// <post>
-        /// - Si la categoria existeix, es retorna la seva informació.
+        /// - Si la comanda existeix, es retorna la seva informació.
         /// </post>
         /// <param name="id">
-        /// Identificador de la categoria a cercar.
+        /// Identificador de la comanda a cercar.
         /// 
         /// </param>
         /// <returns>
-        /// 200 OK amb la categoria trobada.
-        /// 404 NotFound si la categoria no existeix.
+        /// 200 OK amb la comanda trobada.
+        /// 404 NotFound si la comanda no existeix.
         /// </returns>
         [HttpGet("buscar/{id}")]
-        public async Task<ActionResult<Usuari>> BuscarCategoria(int id)
+        public async Task<ActionResult<Usuari>> Buscarcomanda(int id)
         {
-            var categoria = await _categoriaService.GetById(id);
+            var comanda = await _comandaService.GetById(id);
 
-            if (categoria == null)
+            if (comanda == null)
                 return NotFound();
 
-            return Ok(categoria);
+            return Ok(comanda);
         }
 
         /// <brief>
-        /// Crea una nova categoria al sistema.
+        /// Crea una nova comanda al sistema.
         /// </brief>
         /// <pre>
         /// - Les dades del DTO han de ser vàlides.
         /// </pre>
         /// <post>
-        /// - Es crea un nou registre de categoria al sistema.
+        /// - Es crea un nou registre de comanda al sistema.
         /// </post>
         /// <param name="dto">
-        /// Objecte DTO que conté la informació necessària per crear la categoria.
+        /// Objecte DTO que conté la informació necessària per crear la comanda.
         /// </param>
         /// <returns>
         /// 201 Created si la creació es realitza correctament.
         /// </returns>
         [HttpPost("crear")]
-        public async Task<ActionResult> CrearCategoria(CreateCategoriaDTO dto)
+        public async Task<ActionResult> CrearComanda(CreateComandaDTO dto)
         {
-            var categoria = await _categoriaService.CrearCategoria(dto);
+            var comanda = await _comandaService.CrearComanda(dto);
 
-            return StatusCode(StatusCodes.Status201Created, categoria);
+            return StatusCode(StatusCodes.Status201Created, comanda);
         }
 
         /// <brief>
-        /// Actualitza la informació d'una categoria existent.
+        /// Actualitza la informació d'una comanda existent.
         /// </brief>
         /// <pre>
-        /// - La categoria indicada ha d'existir.
+        /// - La comanda indicada ha d'existir.
         /// - Les dades proporcionades han de ser vàlides.
         /// </pre>
         /// <post>
-        /// - Les dades de la categoria queden actualitzades al sistema.
+        /// - Les dades de la comanda queden actualitzades al sistema.
         /// </post>
         /// <param name="id">
-        /// Identificador de la categoria a actualitzar.
+        /// Identificador de la comanda a actualitzar.
         /// </param>
         /// <param name="dto">
-        /// Objecte DTO amb les noves dades de la categoria.
+        /// Objecte DTO amb les noves dades de la comanda.
         /// </param>
         /// <returns>
         /// 200 OK si l'actualització es realitza correctament.
-        /// 404 NotFound si la categoria no existeix.
+        /// 404 NotFound si la comanda no existeix.
         /// </returns>
         [HttpPut("actualitzar/{id}")]
-        public async Task<ActionResult> ActualitzarCategoria(int id, UpdateCategoriaDTO dto)
+        public async Task<ActionResult> ActualitzarComanda(int id, UpdateComandaDTO dto)
         {
-            var categoria = await _categoriaService.UpdateCategoriaDTO(id, dto);
+            var comanda = await _comandaService.UpdateComandaDTO(id, dto);
 
-            if (categoria == null)
+            if (comanda == null)
                 return NotFound();
 
-            return Ok(categoria);
+            return Ok(comanda);
         }
 
         /// <brief>
-        /// Elimina una categoria del sistema.
+        /// Elimina una comanda del sistema.
         /// </brief>
         /// <pre>
-        /// - La categoria indicada ha d'existir al sistema.
+        /// - La comanda indicada ha d'existir al sistema.
         /// </pre>
         /// <post>
-        /// - La categoria és eliminada del sistema.
+        /// - La comanda és eliminada del sistema.
         /// </post>
         /// <param name="id">
-        /// Identificador de la categoria a eliminar.
+        /// Identificador de la comanda a eliminar.
         /// </param>
         /// <returns>
         /// 204 NoContent si l'eliminació es realitza correctament.
-        /// 404 NotFound si la categoria no existeix.
+        /// 404 NotFound si la comanda no existeix.
         /// </returns>
         [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var eliminat = await _categoriaService.DeleteCategoria(id);
+            var eliminat = await _comandaService.DeleteComanda(id);
 
             if (!eliminat)
                 return NotFound();
