@@ -4,7 +4,9 @@ import com.example.servitec_frontend.data.model.Categoria
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
 import com.example.servitec_frontend.data.model.Producte
+import com.example.servitec_frontend.data.model.Taula
 import com.example.servitec_frontend.data.model.Usuari
+import com.example.servitec_frontend.ui.adapter.TaulesAdapter
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -28,4 +30,7 @@ interface ApiService {
 
     @POST("api/Comanda/crear") // Ajusta la ruta exacta si en tu C# el controlador no se llama así
     suspend fun crearComanda(@Body dto: CreateComandaDTO): Response<ResponseBody>
+
+    @GET("api/Taula/llistar")
+    suspend fun obtenirTaules(): Response<List<Taula>>
 }

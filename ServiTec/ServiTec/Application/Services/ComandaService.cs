@@ -5,11 +5,13 @@ public class ComandaService
 {
     private readonly IRepository<Comanda> _repository;
     private readonly IRepository<Producte> _productRepository;
+    private readonly IRepository<Taula> _taulaRepository;
 
-    public ComandaService(IRepository<Comanda> repository, IRepository<Producte> productRepository)
+    public ComandaService(IRepository<Comanda> repository, IRepository<Producte> productRepository, IRepository<Taula> taulaResposity)
     {
         _repository = repository;
         _productRepository = productRepository;
+        _taulaRepository = taulaResposity;
 
     }
 
@@ -45,6 +47,19 @@ public class ComandaService
 
     public async Task<Comanda?> CrearComanda(CreateComandaDTO dto)
     {
+        var taula = await _taulaRepository.GetById(dto.PostIdTaula);
+        if (taula == null)
+        {
+            // En servicios lanzamos excepciones de argumento o de negocio
+            throw new ArgumentException("La mesa especificada no existe.");
+        }
+
+        // 2. Control de seguridad: Si ya está ocupada (Estat == false), no dejamos duplicar
+        if (!taula.Estat)
+        {
+            throw new InvalidOperationException("Esta mesa ya tiene una comanda activa.");
+        }
+
         // 1. Instanciamos el objeto principal Comanda
         var comanda = new Comanda
         {
@@ -88,6 +103,9 @@ public class ComandaService
 
         // 3. Asignamos el total real calculado por el Back de forma segura
         comanda.Total = granTotal;
+
+        taula.Estat = false;
+        await _taulaRepository.Update(taula);
 
         // 4. Guardamos en la BD a través de tu repositorio genérico
         // Al pasarle 'comanda', EF guardará la cabecera y todas las filas de LiniasComanda de golpe.

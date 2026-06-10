@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Círculos arriba -->
+    <path android:pathData="M20,8 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />
+    <path android:pathData="M38,8 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />
+    <path android:pathData="M62,8 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />
+    <path android:pathData="M80,8 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />
+
+    <!-- Rectángulo central -->
+    <path
+        android:pathData="M10,20 L90,20 L90,80 L10,80 Z"
+        android:fillColor="#1E3A8A" />
+
+    <!-- Círculos abajo -->
+    <path android:pathData="M20,92 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />
+    <path android:pathData="M38,92 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />
+    <path android:pathData="M62,92 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />
+    <path android:pathData="M80,92 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />
+
+</vector>

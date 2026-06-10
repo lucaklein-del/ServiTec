@@ -25,6 +25,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.servitec_frontend.R
+import androidx.core.content.edit
 
 /**
  * Activity principal d'autenticació de l'aplicació ServiTec.
@@ -87,6 +88,8 @@ class PantallaLogin : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val etUser  = findViewById<EditText>(R.id.idUsuari)
         val etPass  = findViewById<EditText>(R.id.idContrasenya)
+        val sharedPreferences = getSharedPreferences("ServiTecPrefs", MODE_PRIVATE)
+
 
         /**
          * Listener del botó d'inici de sessió.
@@ -112,6 +115,7 @@ class PantallaLogin : AppCompatActivity() {
                     ).show()
                     val intent = Intent(this, PantallaPanell::class.java)
                     startActivity(intent)
+                    sharedPreferences.edit { putInt("idUsuari", usuario.idUsuari) }
                     finish()
                 } else {
                     Toast.makeText(

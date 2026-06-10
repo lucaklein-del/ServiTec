@@ -28,6 +28,7 @@ class PantallaTaula : AppCompatActivity() {
     private lateinit var tvTotalPreu: TextView
     private lateinit var btnEnviar : Button
     private lateinit var bntSorir : Button
+    private lateinit var mostrarNumeroTaula: TextView
 
     private var totsElsProductes = listOf<Producte>()
     private val repository = MesaRepository()
@@ -42,6 +43,14 @@ class PantallaTaula : AppCompatActivity() {
         tvTotalPreu = findViewById(R.id.tvTotalPrecio)
         btnEnviar = findViewById(R.id.btnEnviar)
         bntSorir = findViewById(R.id.btnVolver)
+        mostrarNumeroTaula = findViewById(R.id.tvTituloMesa)
+
+        val idTaulaActual = intent.getIntExtra("idTaula", -1)
+        val nTaulaActual = intent.getStringExtra("nTaula") ?: "Taula"
+        val sharedPreferences = getSharedPreferences("ServiTecPrefs", MODE_PRIVATE)
+        val idUsuariActual = sharedPreferences.getInt("idUsuari", -1)
+
+        mostrarNumeroTaula.text = nTaulaActual
 
         // 1. Configuración del RecyclerView de Categorías (Izquierda)
         val rvCategories = findViewById<RecyclerView>(R.id.rvCategorias)
@@ -107,8 +116,8 @@ class PantallaTaula : AppCompatActivity() {
             // NOTA: De momento pongo IDs fijos (Taula 1, Usuari 1). Cámbialos por los reales de tu sesión si los tienes.
             val novaComandaDto = CreateComandaDTO(
                 postEstat = "oberta",
-                postIdTaula = 2,
-                postIdUsuari = 1,
+                postIdTaula = idTaulaActual,
+                postIdUsuari = idUsuariActual,
                 postLinies = liniesDto
             )
 
@@ -134,6 +143,7 @@ class PantallaTaula : AppCompatActivity() {
                 }
 
                 btnEnviar.isEnabled = true // Volvemos a activar el botón
+                finish()
             }
         }
 

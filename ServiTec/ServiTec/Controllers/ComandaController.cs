@@ -83,9 +83,26 @@ namespace ServiTec.Controllers
         [HttpPost("crear")]
         public async Task<ActionResult> CrearComanda(CreateComandaDTO dto)
         {
-            var comanda = await _comandaService.CrearComanda(dto);
-
-            return StatusCode(StatusCodes.Status201Created, comanda);
+            try
+            {
+                var comanda = await _comandaService.CrearComanda(dto);
+                return StatusCode(StatusCodes.Status201Created, comanda);
+            }
+            catch (ArgumentException ex)
+            {
+                // Si la taula no existeix en el sistema
+                return NotFound(new { error = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Si la taula ja està ocupada (Estat == false)
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                // Captura cualquier otro error inesperado para que la API no muera
+                return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Error intern del servidor.", detall = ex.Message });
+            }
         }
 
         /// <brief>

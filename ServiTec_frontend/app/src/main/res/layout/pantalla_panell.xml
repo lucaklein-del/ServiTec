@@ -54,11 +54,14 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/btnCerrarSesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="← Cerrar sesión"
             android:textColor="@color/white"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -82,13 +85,98 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pendiente" android:textSize="12sp"/>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTaules"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutSalon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"
-            tools:itemCount="3"
-            tools:listitem="@layout/taula" />
+            android:background="#FFFFFF"
+            android:backgroundTint="#05000000">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMesa2"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="432dp"
+                android:layout_marginTop="148dp"
+                android:background="@drawable/bg_taula_8pax"
+                android:text="Mesa 10\n(8 Pax)"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMesa4"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="52dp"
+                android:background="@drawable/bg_taula_4pax"
+                android:text="Mesa 11\n(4 Pax)"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.916"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMesa5"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_taula_4pax"
+                android:text="Mesa 12\n(4 Pax)"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMesa6"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="432dp"
+                android:layout_marginTop="404dp"
+                android:background="@drawable/bg_taula_6pax"
+                android:text="Mesa 13\n(6 Pax)"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMesa7"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="500dp"
+                android:background="@drawable/bg_taula_2pax"
+                android:text="Mesa 14\n(2 Pax)"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMesa8"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="760dp"
+                android:layout_marginTop="512dp"
+                android:background="@drawable/bg_taula_2pax"
+                android:text="Mesa 15\n(2 Pax)"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </LinearLayout>

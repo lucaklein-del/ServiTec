@@ -16,7 +16,7 @@ namespace ServiTec.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("llistar")]
         public async Task<ActionResult<IEnumerable<TaulaDTO>>> GetAll()
         {
             return Ok(await _service.GetAll());
@@ -33,7 +33,7 @@ namespace ServiTec.Controllers
             return Ok(taula);
         }
 
-        [HttpPost]
+        [HttpPost("crear")]
         public async Task<ActionResult<TaulaDTO>> Create(CreateTaulaDTO dto)
         {
             var taula = await _service.Create(dto);
@@ -41,7 +41,7 @@ namespace ServiTec.Controllers
             return CreatedAtAction(nameof(GetById), new { id = taula.IdTaula }, taula);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Actualitza{id}")]
         public async Task<IActionResult> Update(int id, UpdateTaulaDTO dto)
         {
             var updated = await _service.Update(id, dto);
@@ -52,7 +52,7 @@ namespace ServiTec.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("borra{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var deleted = await _service.Delete(id);

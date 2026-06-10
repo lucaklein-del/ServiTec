@@ -43,10 +43,10 @@
                 android:id="@+id/tvTituloMesa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mesa 1"
+                android:text="Taula"
+                android:textColor="#1E293B"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#1E293B"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvSubtitulo"

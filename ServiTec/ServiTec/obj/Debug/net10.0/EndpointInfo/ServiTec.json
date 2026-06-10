@@ -504,7 +504,7 @@
         }
       }
     },
-    "/api/Taula": {
+    "/api/Taula/llistar": {
       "get": {
         "tags": [
           "Taula"
@@ -540,7 +540,49 @@
             }
           }
         }
-      },
+      }
+    },
+    "/api/Taula/{id}": {
+      "get": {
+        "tags": [
+          "Taula"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaulaDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaulaDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaulaDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Taula/crear": {
       "post": {
         "tags": [
           "Taula"
@@ -588,45 +630,7 @@
         }
       }
     },
-    "/api/Taula/{id}": {
-      "get": {
-        "tags": [
-          "Taula"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TaulaDTO"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TaulaDTO"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TaulaDTO"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/Taula/Actualitza{id}": {
       "put": {
         "tags": [
           "Taula"
@@ -666,7 +670,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Taula/borra{id}": {
       "delete": {
         "tags": [
           "Taula"
