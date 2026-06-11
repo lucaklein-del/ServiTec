@@ -15,7 +15,7 @@ import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LiniaComandaTemporal
 import com.example.servitec_frontend.data.model.Producte
-import com.example.servitec_frontend.repository.MesaRepository
+import com.example.servitec_frontend.repository.taulaRepository
 import com.example.servitec_frontend.ui.adapter.CategoriesAdapter
 import com.example.servitec_frontend.ui.adapter.ComandaAdapter
 import com.example.servitec_frontend.ui.adapter.ProductesAdapter
@@ -31,7 +31,7 @@ class PantallaTaula : AppCompatActivity() {
     private lateinit var mostrarNumeroTaula: TextView
 
     private var totsElsProductes = listOf<Producte>()
-    private val repository = MesaRepository()
+    private val repository = taulaRepository()
 
     // El "carrito" local en memoria
     private val productesSeleccionats = mutableListOf<LiniaComandaTemporal>()

@@ -6,54 +6,76 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.lifecycleScope
 import com.example.servitec_frontend.R
+import com.example.servitec_frontend.repository.taulaRepository
+import kotlinx.coroutines.launch
 
 class PantallaPanell : AppCompatActivity() {
 
+    // Cambiamos el nombre a tu repositorio real
+    private val repository = taulaRepository()
+    private val mapaBotonesMesa = mapOf(
+        2 to R.id.taula2,
+        4 to R.id.taula4,
+        5 to R.id.taula5,
+        6 to R.id.taula6,
+        7 to R.id.taula7,
+        8 to R.id.taula8
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.pantalla_panell)
+        setContentView(R.layout.pantalla_panell) // Tu XML con el ConstraintLayout y los botones colocados
 
-        // 1. Inicializamos y configuramos cada mesa mapeándola con su ID real de la BD
-        configurarMesa(R.id.btnMesa2, idMesaBD = 2, nTaula = "Taula 10")
-        configurarMesa(R.id.btnMesa4, idMesaBD = 4, nTaula = "Taula 11")
-        configurarMesa(R.id.btnMesa5, idMesaBD = 5, nTaula = "Taula 12")
-        configurarMesa(R.id.btnMesa6, idMesaBD = 6, nTaula = "Taula 13")
-        configurarMesa(R.id.btnMesa7, idMesaBD = 7, nTaula = "Taula 14")
-        configurarMesa(R.id.btnMesa8, idMesaBD = 8, nTaula = "Taula 15")
+        cargarMesasDesdeBD()
 
-        // 2. Configuración del botón de cerrar sesión (TextView o Button)
+        // Configuración del botón de cerrar sesión
         val btnCerrarSesion = findViewById<View>(R.id.btnCerrarSesion)
-        btnCerrarSesion?.setOnClickListener {
-            // Finaliza esta actividad y vuelve a la pantalla anterior (Login)
-            finish()
+        btnCerrarSesion?.setOnClickListener { finish() }
+    }
+
+    private fun cargarMesasDesdeBD() {
+        lifecycleScope.launch {
+            // Llamamos a tu método 'obtenirTaules' que está dentro de tu estructura
+            val listaMesas = repository.obtenirTaules()
+
+            if (listaMesas != null) {
+                // 🎇 RECORREMOS LAS MESAS QUE DEVUELVE TU API EN C#
+                for (taula in listaMesas) {
+                    // Buscamos si ese ID de la base de datos tiene un botón físico asignado en tu mapa
+                    val resIdBoton = mapaBotonesMesa[taula.idTaula]
+
+                    if (resIdBoton != null) {
+                        // Si existe, lo configuramos inyectándole su estado dinámico actual
+                        configurarMesa(
+                            resId = resIdBoton,
+                            idMesaBD = taula.idTaula,
+                            nTaula = "Taula ${taula.numero}",
+                            estaLibre = taula.estat
+                        )
+                    }
+                }
+            } else {
+                Toast.makeText(this@PantallaPanell, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    /**
-     * Función genérica para vincular los botones del XML con la lógica de negocio de ServiTec.
-     * @param resId El ID del componente en el archivo XML (ej: R.id.btnMesa2)
-     * @param idMesaBD El ID único que tiene esta mesa en tu base de datos (ASP.NET Core)
-     * @param nombreMesa El nombre amigable para mostrar en pantalla
-     */
-    private fun configurarMesa(resId: Int, idMesaBD: Int, nTaula: String) {
-        val botonMesa = findViewById<AppCompatButton>(resId)
+    private fun configurarMesa(resId: Int, idMesaBD: Int, nTaula: String, estaLibre: Boolean) {
+        val botonMesa = findViewById<AppCompatButton>(resId) ?: return
 
-        botonMesa?.setOnClickListener {
-            // Por ahora mostramos un aviso en pantalla para verificar que la ID es correcta
-            Toast.makeText(
-                this,
-                "Abriendo $nTaula (ID BD: $idMesaBD)",
-                Toast.LENGTH_SHORT
-            ).show()
+        // 🎨 Aplicamos los fondos difuminados pastel según el booleano que viene de SQL Server
+        if (!estaLibre) {
+            botonMesa.setBackgroundResource(R.color.taula_ocupada2)
+        }
 
-
+        botonMesa.setOnClickListener {
             val intent = Intent(this, PantallaTaula::class.java).apply {
                 putExtra("idTaula", idMesaBD)
                 putExtra("nTaula", nTaula)
             }
             startActivity(intent)
-
         }
     }
 }

@@ -7,7 +7,7 @@ import com.example.servitec_frontend.data.model.Taula
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class MesaRepository {
+class taulaRepository {
 
     private val apiService = RetrofitClient.instance
     suspend fun obtenerCategorias(): List<Categoria>? {
@@ -45,7 +45,7 @@ class MesaRepository {
         }
     }
 
-    suspend fun obtenerTodasLasMesas(): List<Taula>? {
+    suspend fun obtenirTaules(): List<Taula>? {
         return try {
             val response = apiService.obtenirTaules() // Ajusta a cómo se llame tu instancia de API
             if (response.isSuccessful) response.body() else null

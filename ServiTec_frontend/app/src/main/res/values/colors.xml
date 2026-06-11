@@ -5,4 +5,8 @@
     <color name="primary_blue">#1E3A5F</color>
     <color name="light_background">#F5F5F5</color>
     <color name="text_gray">#6C757D</color>
+    <color name="taula_ocupada">#FFFF0000</color>
+    <color name="taula_ocupada2">#FFFF6666</color>
+    <color name="taula_ocupada3">#FFD3B6</color>
+    <color name="taula_pendent">#FFFCAB</color>
 </resources>
