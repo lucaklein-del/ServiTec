@@ -11,3 +11,24 @@ data class CreateComandaDTO(
     val postIdUsuari: Int,
     val postLinies: List<CreateLiniaComandaDTO>
 )
+
+data class ResponseComnada(
+    val idComanda: Int,
+    val dataCreacio: String,
+    val estat: String,
+    val total: Double,
+    val idTaula: Int,
+    val idUsuari: Int,
+    // Aquí se mapean las líneas que vienen de C#
+    val liniaComanda: List<ResponseLiniaComanda> = emptyList()
+)
+
+data class ResponseLiniaComanda(
+    val idLiniaComanda: Int,
+    val quantitat: Int,
+    val preuUnitari: Double,
+    val subtotal: Double,
+    val idProducte: Int,
+    // Mapeamos el objeto producto que va dentro de la línea
+    val idProducteNavigation: Producte? = null
+)

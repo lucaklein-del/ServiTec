@@ -1,5 +1,16 @@
 ﻿namespace ServiTec.Application.DTOs
 {
+
+    public class UpdateLiniaComandaDTO
+    {
+        public int PutIdLinia { get; set; }
+        public int PutQuantitat { get; set; }
+        public decimal PutPreuUnitari { get; set; }
+        public decimal PutSubtotal { get; set; }
+        public int PutIdComanda { get; set; }
+        public int PutIdProducte { get; set; }
+    }
+
     public class UpdateComandaDTO
     {
             public int PutIdComanda { get; set; }

@@ -36,6 +36,7 @@ import kotlin.jvm.java
                 val intent = Intent(context, PantallaTaula::class.java).apply {
                     putExtra("idTaula", taulaAcutal.idTaula)
                     putExtra("nTaula", "Taula ${taulaAcutal.numero}")
+                    putExtra("taulaOcupada", true)
                 }
                 context.startActivity(intent)
             }

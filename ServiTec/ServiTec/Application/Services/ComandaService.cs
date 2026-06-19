@@ -1,18 +1,26 @@
-﻿using ServiTec.Application.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ServiTec.Application.DTOs;
 using ServiTec.Domain.Models;
+using ServiTec.Infrastructure.Data;
 
 public class ComandaService
 {
     private readonly IRepository<Comanda> _repository;
     private readonly IRepository<Producte> _productRepository;
     private readonly IRepository<Taula> _taulaRepository;
+    private readonly ServiTecDbContext _context; // 🎇 Añade el contexto directo
 
-    public ComandaService(IRepository<Comanda> repository, IRepository<Producte> productRepository, IRepository<Taula> taulaResposity)
+    public ComandaService(
+        IRepository<Comanda> repository,
+        IRepository<Producte> productRepository,
+        IRepository<Taula> taulaResposity,
+        ServiTecDbContext context) // 👈 Inyéctalo aquí
     {
         _repository = repository;
         _productRepository = productRepository;
         _taulaRepository = taulaResposity;
-
+        _context = context;
     }
 
     public async Task<Comanda?> GetById(int id)
@@ -33,15 +41,33 @@ public class ComandaService
 
     public async Task<IEnumerable<ComandaDTO>> GetComandas()
     {
-        var Comandas = await _repository.GetAll();
-        return Comandas.Select(p => new ComandaDTO
+        var query = await _repository.GetAll();
+
+        // Forzamos la carga de las líneas y sus productos antes del mapeo
+        var comandasConLineas = query
+            .AsQueryable()
+            .Include(c => c.LiniaComanda)
+                .ThenInclude(lc => lc.IdProducteNavigation)
+            .ToList();
+
+        return comandasConLineas.Select(p => new ComandaDTO
         {
             IdComanda = p.IdComanda,
             DataCreacio = p.DataCreacio,
             Estat = p.Estat,
             Total = p.Total,
             IdTaula = p.IdTaula,
-            IdUsuari = p.IdUsuari
+            IdUsuari = p.IdUsuari,
+            // 🎇 Mapeamos la lista de líneas al DTO de salida
+            LiniaComanda = p.LiniaComanda.Select(l => new LiniaComandaDTO
+            {
+                IdLinia = l.IdLinia,
+                Quantitat = l.Quantitat,
+                PreuUnitari = l.PreuUnitari,
+                Subtotal = l.Subtotal,
+                IdComanda = l.IdComanda,
+                IdProducte = l.IdProducte
+            }).ToList()
         }).ToList();
     }
 
@@ -131,5 +157,14 @@ public class ComandaService
         await _repository.Update(Comanda);
 
         return Comanda;
+    }
+
+    public async Task<Comanda?> ObtenirComandaActivaSegonsTaulaAsync(int idTaula)
+    {
+        // 🎇 Al atacar directamente a _context, EF sí traduce los Includes a JOINs reales en SQL
+        return await _context.Comanda
+            .Include(c => c.LiniaComanda)
+                .ThenInclude(lc => lc.IdProducteNavigation)
+            .FirstOrDefaultAsync(c => c.IdTaula == idTaula && c.Estat == "oberta");
     }
 }

@@ -1,11 +1,16 @@
-﻿using System.Text.Json.Serialization;
+﻿using ServiTec.Application.DTOs;
+using System.Text.Json.Serialization;
 
 namespace ServiTec.Application.DTOs
 {
     public class CreateLiniaComandaDTO
     {
+        [JsonPropertyName("PostIdComanda")]
+        public int PostIdComanda { get; set; }
+
         [JsonPropertyName("PostIdProducte")]
         public int PostIdProducte { get; set; }
+
         [JsonPropertyName("PostQuantitat")]
         public int PostQuantitat { get; set; }
     }

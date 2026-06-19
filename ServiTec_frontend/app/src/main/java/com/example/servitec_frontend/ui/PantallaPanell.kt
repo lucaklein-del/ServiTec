@@ -8,13 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.example.servitec_frontend.R
-import com.example.servitec_frontend.repository.taulaRepository
+import com.example.servitec_frontend.data.model.Taula
+import com.example.servitec_frontend.repository.TaulaRepository
 import kotlinx.coroutines.launch
 
 class PantallaPanell : AppCompatActivity() {
 
     // Cambiamos el nombre a tu repositorio real
-    private val repository = taulaRepository()
+    private val repository = TaulaRepository()
     private val mapaBotonesMesa = mapOf(
         2 to R.id.taula2,
         4 to R.id.taula4,
@@ -27,14 +28,16 @@ class PantallaPanell : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pantalla_panell) // Tu XML con el ConstraintLayout y los botones colocados
-
-        cargarMesasDesdeBD()
-
         // Configuración del botón de cerrar sesión
         val btnCerrarSesion = findViewById<View>(R.id.btnCerrarSesion)
         btnCerrarSesion?.setOnClickListener { finish() }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        cargarMesasDesdeBD()
+    }
     private fun cargarMesasDesdeBD() {
         lifecycleScope.launch {
             // Llamamos a tu método 'obtenirTaules' que está dentro de tu estructura
@@ -52,7 +55,7 @@ class PantallaPanell : AppCompatActivity() {
                             resId = resIdBoton,
                             idMesaBD = taula.idTaula,
                             nTaula = "Taula ${taula.numero}",
-                            estaLibre = taula.estat
+                            estaLliure = taula.estat
                         )
                     }
                 }
@@ -62,11 +65,11 @@ class PantallaPanell : AppCompatActivity() {
         }
     }
 
-    private fun configurarMesa(resId: Int, idMesaBD: Int, nTaula: String, estaLibre: Boolean) {
+    private fun configurarMesa(resId: Int, idMesaBD: Int, nTaula: String, estaLliure: Boolean) {
         val botonMesa = findViewById<AppCompatButton>(resId) ?: return
 
         // 🎨 Aplicamos los fondos difuminados pastel según el booleano que viene de SQL Server
-        if (!estaLibre) {
+        if (!estaLliure) {
             botonMesa.setBackgroundResource(R.color.taula_ocupada2)
         }
 
@@ -74,6 +77,7 @@ class PantallaPanell : AppCompatActivity() {
             val intent = Intent(this, PantallaTaula::class.java).apply {
                 putExtra("idTaula", idMesaBD)
                 putExtra("nTaula", nTaula)
+                putExtra("taulaOcupada", !estaLliure)
             }
             startActivity(intent)
         }

@@ -2,6 +2,16 @@
 
 namespace ServiTec.Application.DTOs
 {
+    public class LiniaComandaDTO
+    {
+        public int IdLinia { get; set; }
+        public int Quantitat { get; set; }
+        public decimal PreuUnitari { get; set; }
+        public decimal Subtotal { get; set; }
+        public int IdComanda { get; set; }
+        public int IdProducte { get; set; }
+    }
+
     public class ComandaDTO
     {
         public int IdComanda { get; set; }
@@ -14,10 +24,9 @@ namespace ServiTec.Application.DTOs
 
         public int IdTaula { get; set; }
 
-        public int IdUsuari
-        {
-            get; set;
-        }
+        public int IdUsuari { get; set; }
+
+        public List<LiniaComandaDTO> LiniaComanda { get; set; } = new();
     }
 
     public class CategoriaDTO

@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Categoria"
+                    "$ref": "#/components/schemas/CategoriaDTO"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Categoria"
+                    "$ref": "#/components/schemas/CategoriaDTO"
                   }
                 }
               },
@@ -34,7 +34,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Categoria"
+                    "$ref": "#/components/schemas/CategoriaDTO"
                   }
                 }
               }
@@ -65,17 +65,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Usuari"
+                  "$ref": "#/components/schemas/Categoria"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Usuari"
+                  "$ref": "#/components/schemas/Categoria"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Usuari"
+                  "$ref": "#/components/schemas/Categoria"
                 }
               }
             }
@@ -257,6 +257,29 @@
         }
       }
     },
+    "/api/Comanda/activa/{idTaula}": {
+      "get": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "idTaula",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Comanda/crear": {
       "post": {
         "tags": [
@@ -334,6 +357,197 @@
       "delete": {
         "tags": [
           "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/LiniaComanda/llistar": {
+      "get": {
+        "tags": [
+          "LiniaComanda"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LiniaComandaDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LiniaComandaDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LiniaComandaDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/LiniaComanda/buscar/{id}": {
+      "get": {
+        "tags": [
+          "LiniaComanda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiniaComandaDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiniaComandaDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiniaComandaDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/LiniaComanda/crear": {
+      "post": {
+        "tags": [
+          "LiniaComanda"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLiniaComandaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLiniaComandaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLiniaComandaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiniaComandaDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiniaComandaDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiniaComandaDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/LiniaComanda/actualitzar/{id}": {
+      "put": {
+        "tags": [
+          "LiniaComanda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLiniaComandaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLiniaComandaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLiniaComandaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/LiniaComanda/eliminar/{id}": {
+      "delete": {
+        "tags": [
+          "LiniaComanda"
         ],
         "parameters": [
           {
@@ -928,6 +1142,24 @@
         },
         "additionalProperties": false
       },
+      "CategoriaDTO": {
+        "type": "object",
+        "properties": {
+          "idCategoria": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcio": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Comanda": {
         "type": "object",
         "properties": {
@@ -1024,6 +1256,10 @@
       "CreateLiniaComandaDTO": {
         "type": "object",
         "properties": {
+          "PostIdComanda": {
+            "type": "integer",
+            "format": "int32"
+          },
           "PostIdProducte": {
             "type": "integer",
             "format": "int32"
@@ -1129,6 +1365,36 @@
           },
           "idProducteNavigation": {
             "$ref": "#/components/schemas/Producte"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LiniaComandaDTO": {
+        "type": "object",
+        "properties": {
+          "idLinia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantitat": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "preuUnitari": {
+            "type": "number",
+            "format": "double"
+          },
+          "subtotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "idComanda": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idProducte": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1322,6 +1588,36 @@
         },
         "additionalProperties": false
       },
+      "UpdateLiniaComandaDTO": {
+        "type": "object",
+        "properties": {
+          "putIdLinia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "putQuantitat": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "putPreuUnitari": {
+            "type": "number",
+            "format": "double"
+          },
+          "putSubtotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "putIdComanda": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "putIdProducte": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateProducteDTO": {
         "type": "object",
         "properties": {
@@ -1438,6 +1734,9 @@
     },
     {
       "name": "Comanda"
+    },
+    {
+      "name": "LiniaComanda"
     },
     {
       "name": "Producte"

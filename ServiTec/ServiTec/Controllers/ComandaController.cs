@@ -65,6 +65,21 @@ namespace ServiTec.Controllers
             return Ok(comanda);
         }
 
+        [HttpGet("activa/{idTaula}")]
+        public async Task<IActionResult> ObtenirComandaActiva(int idTaula)
+        {
+            // El controlador NO habla con la BD, le pide los datos al Service
+            var comanda = await _comandaService.ObtenirComandaActivaSegonsTaulaAsync(idTaula);
+
+            if (comanda == null)
+            {
+                return NotFound(new { message = "No s'ha trobat cap comanda activa per a aquesta taula." });
+            }
+
+            // Devolvemos el objeto (si usas DTOs de salida, lo mapeas aquí)
+            return Ok(comanda);
+        }
+
         /// <brief>
         /// Crea una nova comanda al sistema.
         /// </brief>

@@ -4,6 +4,7 @@ import com.example.servitec_frontend.data.model.Categoria
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
 import com.example.servitec_frontend.data.model.Producte
+import com.example.servitec_frontend.data.model.ResponseComnada
 import com.example.servitec_frontend.data.model.Taula
 import com.example.servitec_frontend.data.model.Usuari
 import com.example.servitec_frontend.ui.adapter.TaulesAdapter
@@ -13,6 +14,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("api/Usuari/llistar")
@@ -33,4 +35,7 @@ interface ApiService {
 
     @GET("api/Taula/llistar")
     suspend fun obtenirTaules(): Response<List<Taula>>
+
+    @GET("api/Comanda/activa/{id}")
+    suspend fun obtenirComandaActiva(@Path("id") idMesa: Int): Response<ResponseComnada>
 }

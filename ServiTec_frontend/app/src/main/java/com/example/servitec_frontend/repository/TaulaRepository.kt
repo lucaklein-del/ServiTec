@@ -3,14 +3,29 @@ package com.example.servitec_frontend.repository
 import com.example.servitec_frontend.data.model.Categoria
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.Producte
+import com.example.servitec_frontend.data.model.ResponseComnada
 import com.example.servitec_frontend.data.model.Taula
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class taulaRepository {
+class TaulaRepository {
 
     private val apiService = RetrofitClient.instance
-    suspend fun obtenerCategorias(): List<Categoria>? {
+
+    suspend fun obtenirComandaActiva(idMesa: Int): ResponseComnada? {
+        return try {
+            val response = apiService.obtenirComandaActiva(idMesa)
+            if (response.isSuccessful) {
+                response.body() // Devuelve la comanda si encuentra un 200 OK
+            } else {
+                null // Devuelve null si es un 404 (Mesa libre)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    suspend fun obtenirCategories(): List<Categoria>? {
         return withContext(Dispatchers.IO) {
             try {
                 val response = apiService.getCategories()
