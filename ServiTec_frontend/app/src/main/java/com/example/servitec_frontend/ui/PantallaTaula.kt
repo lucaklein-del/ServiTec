@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.enableSavedStateHandles
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -90,7 +91,8 @@ class PantallaTaula : AppCompatActivity() {
                                 LiniaComandaTemporal(
                                     producte = prod,
                                     quantitat = linea.quantitat,
-                                    total = linea.subtotal
+                                    total = linea.subtotal,
+                                    estat = "Pendent"
                                 )
                             )
                         }
@@ -117,7 +119,8 @@ class PantallaTaula : AppCompatActivity() {
                 productesSeleccionats.add(LiniaComandaTemporal(
                     producte = productoPulsado,
                     quantitat = 1,
-                    total = totalInicial
+                    total = totalInicial,
+                    estat = "Pendent"
                 ))
             }
 
@@ -137,7 +140,8 @@ class PantallaTaula : AppCompatActivity() {
             val liniesDto = productesSeleccionats.map { l ->
                 CreateLiniaComandaDTO(
                     postIdProducte = l.producte.idProducte,
-                    postQuantitat = l.quantitat
+                    postQuantitat = l.quantitat,
+                    postEstat = l.estat
                 )
             }
 

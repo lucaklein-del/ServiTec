@@ -119,7 +119,8 @@ public class ComandaService
                     Quantitat = liniaDto.PostQuantitat,
                     PreuUnitari = preuUnitari,
                     Subtotal = subtotal,
-                    IdProducte = liniaDto.PostIdProducte
+                    IdProducte = liniaDto.PostIdProducte,
+                    Estat = liniaDto.PostEstat
                     // NO asignamos IdComanda. Al meterlo en la lista de 'comanda', EF lo mapea solo.
                 };
 
@@ -253,7 +254,7 @@ public class ComandaService
         // 2. Liberar la mesa asociada
         if (comanda.IdTaulaNavigation != null)
         {
-            comanda.IdTaulaNavigation.Estat = false;
+            comanda.IdTaulaNavigation.Estat = true;
         }
 
         await _context.SaveChangesAsync();

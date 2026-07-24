@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class LiniaComandaTemporal(
     val producte: Producte,
     var quantitat: Int,
-    var total: Double
+    var total: Double,
+    var estat: String
 )
 
 data class LiniaCuinaDTO(
