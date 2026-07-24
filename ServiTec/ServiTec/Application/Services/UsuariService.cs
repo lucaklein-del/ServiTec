@@ -27,7 +27,8 @@ public class UsuariService
             NomUsuari = dto.PostNomUsuari,
             Contrasenya = dto.PostContrasenya,
             Actiu = dto.PostActiu,
-            Admin = dto.PostAdmin
+            Admin = dto.PostAdmin,
+            Rol = dto.PostRol
         };
 
         return await _repository.Create(usuari);
@@ -44,6 +45,7 @@ public class UsuariService
         usuari.Contrasenya = dto.PutContrasenya;
         usuari.Actiu = dto.PutActiu;
         usuari.Admin = dto.PutAdmin;
+        usuari.Rol = dto.PutRol;
 
         await _repository.Update(usuari);
 

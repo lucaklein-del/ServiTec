@@ -21,6 +21,6 @@ public partial class LiniaComanda
     // 2. Relación con el Producto
     public int IdProducte { get; set; }
 
-    [ForeignKey("IdProducte")] // 🔥 Enlaza con el ID del Producto
+    [ForeignKey("IdProducte")] 
     public virtual Producte IdProducteNavigation { get; set; } = null!;
 }

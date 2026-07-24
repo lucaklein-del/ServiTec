@@ -1,5 +1,7 @@
 package com.example.servitec_frontend.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class CreateLiniaComandaDTO(
     val postIdProducte: Int,
     val postQuantitat: Int
@@ -31,4 +33,12 @@ data class ResponseLiniaComanda(
     val idProducte: Int,
     // Mapeamos el objeto producto que va dentro de la línea
     val idProducteNavigation: Producte? = null
+)
+
+data class ResponseCuina(
+    @SerializedName("idComanda") val idComanda: Int,
+    @SerializedName("idTaula") val idTaula: Int,
+    @SerializedName("numTaula") val numTaula: String?,
+    @SerializedName("dataHora") val dataHora: String,
+    @SerializedName("linies") val linies: List<LiniaCuinaDTO>
 )

@@ -26,6 +26,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.servitec_frontend.R
 import androidx.core.content.edit
+import kotlin.jvm.java
 
 /**
  * Activity principal d'autenticació de l'aplicació ServiTec.
@@ -113,9 +114,33 @@ class PantallaLogin : AppCompatActivity() {
                         "Hola, ${usuario.nomUsuari}",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this, PantallaPanell::class.java)
+
+                    // 1. Desem l'ID de l'usuari i el seu rol a les SharedPreferences
+                    sharedPreferences.edit {
+                        putInt("idUsuari", usuario.idUsuari)
+                        // Mantenim registre del rol si es necessita a posteriori
+                        putString("rolUsuari", usuario.rol.toString())
+                    }
+
+                    // 2. Comprovem el Rol per definir la destinació
+                    // Accepta tant el número INT (1=Camarero, 2=Cocinero) com el nom del ROL (Enum/String)
+                    val intent = when (usuario.rol.toString().lowercase()) {
+                        "cocinero", "cuiner" -> {
+                            // 🍳 Enruta a la pantalla de Cocina
+                            Intent(this, PantallaCuina::class.java)
+                        }
+                        "1", "camarero", "cabrer", "administrador" -> {
+                            // ☕ Enruta al mapa de mesas / panel principal
+                            Intent(this, PantallaPanell::class.java)
+                        }
+                        else -> {
+                            // Per defecte, si no reconeix el rol, enviem al Panell
+                            Intent(this, PantallaPanell::class.java)
+                        }
+                    }
+
+                    // 3. Iniciem la pantalla corresponent i cerquem el Login
                     startActivity(intent)
-                    sharedPreferences.edit { putInt("idUsuari", usuario.idUsuari) }
                     finish()
                 } else {
                     Toast.makeText(

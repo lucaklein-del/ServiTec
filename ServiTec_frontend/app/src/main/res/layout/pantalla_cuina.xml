@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#F4F5F7">
+
+    <!-- 🟦 COLUMNA LATERAL AZUL (Igual que en el resto de la app) -->
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:background="#1B3B6F"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Servi Tec"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="Panel de cuina"
+            android:textColor="#A0B2C6"
+            android:textSize="12sp" />
+
+        <!-- Botón activo de Cocina -->
+
+        <!-- Espacio flexible para empujar el Cerrar Sesión abajo -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Botón Cerrar Sesión -->
+        <TextView
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Cerrar sesión"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
+
+    <!-- ⬜ PANEL CENTRAL: Lista horizontal / Grid de Comandas de Cocina -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comandas Activas"
+            android:textColor="#1B3B6F"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <!-- RecyclerView para scroll horizontal de tarjetas de comandas -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvComandesCuina"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -167,4 +167,29 @@ public class ComandaService
                 .ThenInclude(lc => lc.IdProducteNavigation)
             .FirstOrDefaultAsync(c => c.IdTaula == idTaula && c.Estat == "oberta");
     }
+
+    public async Task<List<ComandaCuinaDTO>> ObtenirComandesCuinaAsync()
+    {
+        return await _context.Comanda
+            .Include(c => c.IdTaulaNavigation)
+            .Include(c => c.LiniaComanda)
+                .ThenInclude(l => l.IdProducteNavigation)
+            .Where(c => c.Estat == "Pendent" || c.Estat == "oberta")
+            .Select(c => new ComandaCuinaDTO
+            {
+                IdComanda = c.IdComanda,
+                IdTaula = c.IdTaula,
+                NumTaula = c.IdTaulaNavigation.Numero,
+                DataHora = c.DataCreacio,
+                Linies = c.LiniaComanda.Select(l => new LiniaCuinaDTO
+                {
+                    IdLiniaComanda = l.IdLinia,
+                    IdProducte = l.IdProducte,
+                    Quantitat = l.Quantitat,
+                    IdCategoria = l.IdProducteNavigation.IdCategoria,
+                    NomProducte = l.IdProducteNavigation.Nom
+                }).ToList()
+            })
+            .ToListAsync();
+    }
 }

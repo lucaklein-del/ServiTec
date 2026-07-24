@@ -30,7 +30,10 @@ class PantallaPanell : AppCompatActivity() {
         setContentView(R.layout.pantalla_panell) // Tu XML con el ConstraintLayout y los botones colocados
         // Configuración del botón de cerrar sesión
         val btnCerrarSesion = findViewById<View>(R.id.btnCerrarSesion)
-        btnCerrarSesion?.setOnClickListener { finish() }
+
+        btnCerrarSesion.setOnClickListener {
+            tancarSessio()
+        }
     }
 
     override fun onResume() {
@@ -81,5 +84,16 @@ class PantallaPanell : AppCompatActivity() {
             }
             startActivity(intent)
         }
+    }
+
+    private fun tancarSessio() {
+        val sharedPreferences = getSharedPreferences("ServiTecPrefs", MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+
+        val intent = Intent(this, PantallaLogin::class.java)
+        // Netejar l'historial de pantalles perquè no pugui tornar enrere
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 }

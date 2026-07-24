@@ -177,5 +177,12 @@ namespace ServiTec.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("cuina")]
+        public async Task<ActionResult<List<ComandaCuinaDTO>>> GetComandesCuina()
+        {
+            var comandes = await _comandaService.ObtenirComandesCuinaAsync();
+            return Ok(comandes);
+        }
     }
 }

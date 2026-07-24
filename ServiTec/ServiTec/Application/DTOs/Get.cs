@@ -53,6 +53,8 @@ namespace ServiTec.Application.DTOs
         public string contrasenya { get; set; }
         public bool Actiu { get; set; }
         public bool Admin { get; set; }
+        public string Rol { get; set; } = null!;
+
     }
 
     public class TaulaDTO
@@ -64,6 +66,24 @@ namespace ServiTec.Application.DTOs
         public int Capacitat { get; set; }
 
         public bool Estat { get; set; }
+    }
+
+    public class ComandaCuinaDTO
+    {
+        public int IdComanda { get; set; }
+        public int IdTaula { get; set; }
+        public int NumTaula { get; set; }
+        public DateTime DataHora { get; set; }
+        public List<LiniaCuinaDTO> Linies { get; set; } = new();
+    }
+
+    public class LiniaCuinaDTO
+    {
+        public int IdLiniaComanda { get; set; }
+        public int IdProducte { get; set; }
+        public int Quantitat { get; set; }
+        public int IdCategoria { get; set; } 
+        public string NomProducte { get; set; } = null!;
     }
 
 }

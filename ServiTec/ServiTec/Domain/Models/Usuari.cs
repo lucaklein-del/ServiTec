@@ -14,6 +14,7 @@ public partial class Usuari
     public bool Actiu { get; set; }
 
     public bool Admin { get; set; }
+    public string Rol { get; set; } = null!;
 
     public virtual ICollection<Comanda> Comanda { get; set; } = new List<Comanda>();
 

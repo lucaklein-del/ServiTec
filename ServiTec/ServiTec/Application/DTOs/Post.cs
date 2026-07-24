@@ -48,6 +48,7 @@ namespace ServiTec.Application.DTOs
         public string PostContrasenya { get; set; } = null!;
         public bool PostActiu { get; set; }
         public bool PostAdmin { get; set; }
+        public string PostRol { get; set; } = null!;
     }
 
     public class CreateTaulaDTO

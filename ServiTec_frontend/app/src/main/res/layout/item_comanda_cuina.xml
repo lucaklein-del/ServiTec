@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Cabecera del Ticket: Nombre de la Mesa y Hora -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/tvNumTaula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mesa 1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/tvHoraComanda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="14:30"
+                android:textSize="14sp"
+                android:textColor="#666666" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Sección 1: Bebidas / Entrantes -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BEBIDAS / ENTRANTES"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#007ACC"
+            android:layout_marginBottom="4dp" />
+
+        <LinearLayout
+            android:id="@+id/containerBebidas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Sección 2: Primeros Platos -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PRIMEROS"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#007ACC"
+            android:layout_marginBottom="4dp" />
+
+        <LinearLayout
+            android:id="@+id/containerPrimeros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Sección 3: Segundos Platos -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SEGUNDOS"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#007ACC"
+            android:layout_marginBottom="4dp" />
+
+        <LinearLayout
+            android:id="@+id/containerSegundos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

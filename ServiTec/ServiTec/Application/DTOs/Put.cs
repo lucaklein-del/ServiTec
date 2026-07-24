@@ -55,6 +55,7 @@
             public string PutContrasenya { get; set; } = null!;
             public bool PutActiu { get; set; }
             public bool PutAdmin { get; set; }
+            public string PutRol { get; set; } = null!;
     }
 
     namespace ServiTec.DTOs

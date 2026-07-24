@@ -5,6 +5,7 @@ import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
 import com.example.servitec_frontend.data.model.Producte
 import com.example.servitec_frontend.data.model.ResponseComnada
+import com.example.servitec_frontend.data.model.ResponseCuina
 import com.example.servitec_frontend.data.model.Taula
 import com.example.servitec_frontend.data.model.Usuari
 import com.example.servitec_frontend.ui.adapter.TaulesAdapter
@@ -38,4 +39,7 @@ interface ApiService {
 
     @GET("api/Comanda/activa/{id}")
     suspend fun obtenirComandaActiva(@Path("id") idMesa: Int): Response<ResponseComnada>
+
+    @GET("api/comanda/cuina")
+    suspend fun getComandesCuina(): Response<List<ResponseCuina>>
 }

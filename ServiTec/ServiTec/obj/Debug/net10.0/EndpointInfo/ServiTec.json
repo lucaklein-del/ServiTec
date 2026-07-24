@@ -376,6 +376,44 @@
         }
       }
     },
+    "/api/Comanda/cuina": {
+      "get": {
+        "tags": [
+          "Comanda"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComandaCuinaDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComandaCuinaDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComandaCuinaDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/LiniaComanda/llistar": {
       "get": {
         "tags": [
@@ -1210,6 +1248,35 @@
         },
         "additionalProperties": false
       },
+      "ComandaCuinaDTO": {
+        "type": "object",
+        "properties": {
+          "idComanda": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idTaula": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numTaula": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dataHora": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "linies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LiniaCuinaDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateCategoriaDTO": {
         "type": "object",
         "properties": {
@@ -1329,6 +1396,10 @@
           },
           "postAdmin": {
             "type": "boolean"
+          },
+          "postRol": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1395,6 +1466,32 @@
           "idProducte": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LiniaCuinaDTO": {
+        "type": "object",
+        "properties": {
+          "idLiniaComanda": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idProducte": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantitat": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idCategoria": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nomProducte": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1684,6 +1781,10 @@
           },
           "putAdmin": {
             "type": "boolean"
+          },
+          "putRol": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1708,6 +1809,10 @@
           },
           "admin": {
             "type": "boolean"
+          },
+          "rol": {
+            "type": "string",
+            "nullable": true
           },
           "comanda": {
             "type": "array",
