@@ -14,7 +14,7 @@
     <!-- Rectángulo central -->
     <path
         android:pathData="M10,20 L90,20 L90,80 L10,80 Z"
-        android:fillColor="#1E3A8A" />
+        android:fillColor="@color/fons_taula_selecotr" />
 
     <!-- Círculos abajo -->
     <path android:pathData="M20,92 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" android:fillColor="#BDBDBD" />

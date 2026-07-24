@@ -68,16 +68,16 @@ class PantallaPanell : AppCompatActivity() {
         // 🎨 Pintamos la mesa en función del estado de su comanda activa
         when (estatComanda) {
             "oberta" -> {
-                // Comanda enviada a cocina / en proceso
-                botonMesa.setBackgroundResource(R.color.taula_ocupada2)
+                botonMesa.isSelected = true
+                botonMesa.isActivated = false
             }
             "pendent" -> {
-                // Platos listos / pendiente de servir o cobrar (ej: color amarillo/atención)
-                botonMesa.setBackgroundResource(R.color.taula_pendent) // O el color que tengas para pendiente
+                botonMesa.isSelected = false
+                botonMesa.isActivated = true
             }
             else -> {
-                // Sin comanda activa ("lliure" o "tancada") -> Color por defecto/libre
-                botonMesa.setBackgroundResource(R.color.taula_lliure)
+                botonMesa.isSelected = false
+                botonMesa.isActivated = false
             }
         }
 

@@ -13,7 +13,7 @@
     <!-- Cuadrado azul central -->
     <path
         android:pathData="M20,20 L80,20 L80,80 L20,80 Z"
-        android:fillColor="#1E3A8A" />
+        android:fillColor="@color/fons_taula_selecotr" />
 
     <!-- Círculo abajo -->
     <path
