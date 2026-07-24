@@ -23,4 +23,6 @@ public partial class LiniaComanda
 
     [ForeignKey("IdProducte")] 
     public virtual Producte IdProducteNavigation { get; set; } = null!;
+
+    public string Estat { get; set; }
 }

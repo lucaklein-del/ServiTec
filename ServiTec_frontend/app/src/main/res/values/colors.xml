@@ -9,4 +9,6 @@
     <color name="taula_ocupada2">#FFFF6666</color>
     <color name="taula_ocupada3">#FFD3B6</color>
     <color name="taula_pendent">#FFFCAB</color>
+    <color name="taula_lliure">#1E3A8A</color>
+
 </resources>

@@ -8,13 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.example.servitec_frontend.R
-import com.example.servitec_frontend.data.model.Taula
 import com.example.servitec_frontend.repository.TaulaRepository
 import kotlinx.coroutines.launch
 
 class PantallaPanell : AppCompatActivity() {
 
-    // Cambiamos el nombre a tu repositorio real
     private val repository = TaulaRepository()
     private val mapaBotonesMesa = mapOf(
         2 to R.id.taula2,
@@ -27,10 +25,9 @@ class PantallaPanell : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.pantalla_panell) // Tu XML con el ConstraintLayout y los botones colocados
-        // Configuración del botón de cerrar sesión
-        val btnCerrarSesion = findViewById<View>(R.id.btnCerrarSesion)
+        setContentView(R.layout.pantalla_panell)
 
+        val btnCerrarSesion = findViewById<View>(R.id.btnCerrarSesion)
         btnCerrarSesion.setOnClickListener {
             tancarSessio()
         }
@@ -38,27 +35,24 @@ class PantallaPanell : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         cargarMesasDesdeBD()
     }
+
     private fun cargarMesasDesdeBD() {
         lifecycleScope.launch {
-            // Llamamos a tu método 'obtenirTaules' que está dentro de tu estructura
             val listaMesas = repository.obtenirTaules()
 
             if (listaMesas != null) {
-                // 🎇 RECORREMOS LAS MESAS QUE DEVUELVE TU API EN C#
                 for (taula in listaMesas) {
-                    // Buscamos si ese ID de la base de datos tiene un botón físico asignado en tu mapa
                     val resIdBoton = mapaBotonesMesa[taula.idTaula]
 
                     if (resIdBoton != null) {
-                        // Si existe, lo configuramos inyectándole su estado dinámico actual
+                        // 🎯 Le pasamos el 'estatComanda' (o 'estat') que viene del backend
                         configurarMesa(
                             resId = resIdBoton,
                             idMesaBD = taula.idTaula,
                             nTaula = "Taula ${taula.numero}",
-                            estaLliure = taula.estat
+                            estatComanda = taula.estatComanda ?: "lliure" // Ej: "oberta", "Pendent", "lliure"
                         )
                     }
                 }
@@ -68,19 +62,33 @@ class PantallaPanell : AppCompatActivity() {
         }
     }
 
-    private fun configurarMesa(resId: Int, idMesaBD: Int, nTaula: String, estaLliure: Boolean) {
+    private fun configurarMesa(resId: Int, idMesaBD: Int, nTaula: String, estatComanda: String) {
         val botonMesa = findViewById<AppCompatButton>(resId) ?: return
 
-        // 🎨 Aplicamos los fondos difuminados pastel según el booleano que viene de SQL Server
-        if (!estaLliure) {
-            botonMesa.setBackgroundResource(R.color.taula_ocupada2)
+        // 🎨 Pintamos la mesa en función del estado de su comanda activa
+        when (estatComanda) {
+            "oberta" -> {
+                // Comanda enviada a cocina / en proceso
+                botonMesa.setBackgroundResource(R.color.taula_ocupada2)
+            }
+            "pendent" -> {
+                // Platos listos / pendiente de servir o cobrar (ej: color amarillo/atención)
+                botonMesa.setBackgroundResource(R.color.taula_pendent) // O el color que tengas para pendiente
+            }
+            else -> {
+                // Sin comanda activa ("lliure" o "tancada") -> Color por defecto/libre
+                botonMesa.setBackgroundResource(R.color.taula_lliure)
+            }
         }
+
+        val esOcupada = estatComanda == "oberta" || estatComanda == "pendent"
 
         botonMesa.setOnClickListener {
             val intent = Intent(this, PantallaTaula::class.java).apply {
                 putExtra("idTaula", idMesaBD)
                 putExtra("nTaula", nTaula)
-                putExtra("taulaOcupada", !estaLliure)
+                putExtra("taulaOcupada", esOcupada)
+                putExtra("estatComanda", estatComanda)
             }
             startActivity(intent)
         }
@@ -91,7 +99,6 @@ class PantallaPanell : AppCompatActivity() {
         sharedPreferences.edit().clear().apply()
 
         val intent = Intent(this, PantallaLogin::class.java)
-        // Netejar l'historial de pantalles perquè no pugui tornar enrere
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()

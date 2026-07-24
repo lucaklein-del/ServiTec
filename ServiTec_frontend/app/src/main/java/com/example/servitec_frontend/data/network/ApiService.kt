@@ -15,6 +15,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -41,5 +42,15 @@ interface ApiService {
     suspend fun obtenirComandaActiva(@Path("id") idMesa: Int): Response<ResponseComnada>
 
     @GET("api/comanda/cuina")
-    suspend fun getComandesCuina(): Response<List<ResponseCuina>>
+    suspend fun getComandesCuina(): Response<MutableList<ResponseCuina>>
+
+    @PUT("api/comanda/{id}/estat")
+    suspend fun canviarEstatComanda(@Path("id") idComanda: Int, @Body nouEstat: String): Response<ResponseBody>
+
+    @PUT("api/comanda/linia/{idLinia}/estat")
+    suspend fun canviarEstatLinia(@Path("idLinia") idLinia: Int, @Body nouEstat: String): Response<ResponseBody>
+
+    @PUT("api/comanda/{idComanda}/cobrar")
+    suspend fun cobrarComanda(@Path("idComanda") idComanda: Int): Response<ResponseBody>
 }
+

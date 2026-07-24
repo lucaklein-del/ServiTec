@@ -13,6 +13,7 @@ namespace ServiTec.Application.DTOs
 
         [JsonPropertyName("PostQuantitat")]
         public int PostQuantitat { get; set; }
+        public string PostEstat { get; set; } = null!;
     }
 
     public class CreateComandaDTO
@@ -58,5 +59,6 @@ namespace ServiTec.Application.DTOs
         public int PostCapacitat { get; set; }
 
         public bool PostEstat { get; set; }
+        public string? PostEstatComanda { get; set; }
     }
 }

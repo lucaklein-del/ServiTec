@@ -68,4 +68,13 @@ class TaulaRepository {
             null
         }
     }
+
+    suspend fun cobrarComanda(idComanda: Int): Boolean {
+        return try {
+            val response = RetrofitClient.instance.cobrarComanda(idComanda)
+            response.isSuccessful
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

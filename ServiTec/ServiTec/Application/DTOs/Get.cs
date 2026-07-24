@@ -10,6 +10,7 @@ namespace ServiTec.Application.DTOs
         public decimal Subtotal { get; set; }
         public int IdComanda { get; set; }
         public int IdProducte { get; set; }
+        public string Estat { get; set; } = null!;
     }
 
     public class ComandaDTO
@@ -66,6 +67,7 @@ namespace ServiTec.Application.DTOs
         public int Capacitat { get; set; }
 
         public bool Estat { get; set; }
+        public string? EstatComanda { get; set; }
     }
 
     public class ComandaCuinaDTO

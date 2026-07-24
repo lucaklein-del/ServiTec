@@ -414,6 +414,113 @@
         }
       }
     },
+    "/api/Comanda/{id}/estat": {
+      "put": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Comanda/linia/{idLinia}/estat": {
+      "put": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "idLinia",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Comanda/{idComanda}/cobrar": {
+      "put": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "idComanda",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/LiniaComanda/llistar": {
       "get": {
         "tags": [
@@ -1334,6 +1441,10 @@
           "PostQuantitat": {
             "type": "integer",
             "format": "int32"
+          },
+          "postEstat": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1376,6 +1487,10 @@
           },
           "postEstat": {
             "type": "boolean"
+          },
+          "postEstatComanda": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1436,6 +1551,10 @@
           },
           "idProducteNavigation": {
             "$ref": "#/components/schemas/Producte"
+          },
+          "estat": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1466,6 +1585,10 @@
           "idProducte": {
             "type": "integer",
             "format": "int32"
+          },
+          "estat": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1633,6 +1756,10 @@
           },
           "estat": {
             "type": "boolean"
+          },
+          "estatComanda": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1711,6 +1838,10 @@
           "putIdProducte": {
             "type": "integer",
             "format": "int32"
+          },
+          "putEstat": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1757,6 +1888,10 @@
           },
           "putEstat": {
             "type": "boolean"
+          },
+          "putEstatComanda": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

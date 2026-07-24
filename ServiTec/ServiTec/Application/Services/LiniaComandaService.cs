@@ -32,7 +32,8 @@ namespace ServiTec.Services
                 PreuUnitari = p.PreuUnitari,
                 Subtotal = p.Subtotal,
                 IdComanda = p.IdComanda,
-                IdProducte = p.IdProducte
+                IdProducte = p.IdProducte,
+                Estat = p.Estat
             }).ToList();
         }
 
@@ -56,7 +57,8 @@ namespace ServiTec.Services
                 IdProducte = dto.PostIdProducte,                                        
                 Quantitat = dto.PostQuantitat,   
                 PreuUnitari = preuUnitari,
-                Subtotal = preuUnitari * dto.PostQuantitat
+                Subtotal = preuUnitari * dto.PostQuantitat,
+                Estat = "Pendent" 
             };
 
             var resultat = await _repository.Create(nuevaLinia);
@@ -69,7 +71,8 @@ namespace ServiTec.Services
                 PreuUnitari = resultat.PreuUnitari,
                 Subtotal = resultat.Subtotal,
                 IdComanda = resultat.IdComanda,
-                IdProducte = resultat.IdProducte
+                IdProducte = resultat.IdProducte,
+                Estat = resultat.Estat
             };
         }
 

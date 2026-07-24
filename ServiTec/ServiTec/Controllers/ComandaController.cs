@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ServiTec.Application.DTOs;
 using ServiTec.Application.Services;
 using ServiTec.Domain.Models;
@@ -183,6 +184,41 @@ namespace ServiTec.Controllers
         {
             var comandes = await _comandaService.ObtenirComandesCuinaAsync();
             return Ok(comandes);
+        }
+
+        [HttpPut("{id}/estat")]
+        public async Task<IActionResult> CanviarEstatComanda(int id, [FromBody] string nouEstat)
+        {
+            var exit = await _comandaService.CanviarEstatComandaAsync(id, nouEstat);
+
+            if (!exit)
+            {
+                return NotFound(new { missatge = "Comanda no trobada" });
+            }
+
+            return Ok(new { missatge = "Estat de la comanda actualitzat correctament" });
+        }
+
+        [HttpPut("linia/{idLinia}/estat")]
+        public async Task<IActionResult> CanviarEstatLinia(int idLinia, [FromBody] string nouEstat)
+        {
+            var exit = await _comandaService.CanviarEstatLiniaAsync(idLinia, nouEstat);
+
+            if (!exit)
+            {
+                return NotFound(new { missatge = "Línia de comanda no trobada" });
+            }
+
+            return Ok(new { missatge = "Estat de la línia actualitzat correctament" });
+        }
+
+        [HttpPut("{idComanda}/cobrar")]
+        public async Task<IActionResult> CobrarComanda(int idComanda)
+        {
+            var exit = await _comandaService.CobrarComandaAsync(idComanda);
+            if (!exit) return NotFound(new { missatge = "Comanda no trobada" });
+
+            return Ok(new { missatge = "Comanda cobrada i tancada correctament" });
         }
     }
 }

@@ -6,5 +6,6 @@ data class Taula(
     @SerializedName("idTaula") val idTaula: Int,
     @SerializedName("numero") val numero: Int,
     @SerializedName("capacitat") val capacitat: Int,
-    @SerializedName("estat") val estat: Boolean
+    @SerializedName("estat") val estat: Boolean,
+    @SerializedName("estatComanda") val estatComanda: String? = null
 )

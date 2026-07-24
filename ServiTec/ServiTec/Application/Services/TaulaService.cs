@@ -23,7 +23,12 @@ namespace ServiTec.Services
                     IdTaula = t.IdTaula,
                     Numero = t.Numero,
                     Capacitat = t.Capacitat,
-                    Estat = t.Estat
+                    Estat = t.Estat,
+                    EstatComanda = _context.Comanda
+                        .Where(c => c.IdTaula == t.IdTaula && (c.Estat == "oberta" || c.Estat == "pendent"))
+                        .OrderByDescending(c => c.DataCreacio)
+                        .Select(c => c.Estat)
+                        .FirstOrDefault() ?? "lliure"
                 })
                 .ToListAsync();
         }

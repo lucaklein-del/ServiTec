@@ -100,6 +100,43 @@
   },
   {
     "ContainingType": "ServiTec.Controllers.ComandaController",
+    "Method": "CanviarEstatComanda",
+    "RelativePath": "api/Comanda/{id}/estat",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nouEstat",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ServiTec.Controllers.ComandaController",
+    "Method": "CobrarComanda",
+    "RelativePath": "api/Comanda/{idComanda}/cobrar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComanda",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ServiTec.Controllers.ComandaController",
     "Method": "ObtenirComandaActiva",
     "RelativePath": "api/Comanda/activa/{idTaula}",
     "HttpMethod": "GET",
@@ -208,6 +245,27 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ServiTec.Controllers.ComandaController",
+    "Method": "CanviarEstatLinia",
+    "RelativePath": "api/Comanda/linia/{idLinia}/estat",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idLinia",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nouEstat",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

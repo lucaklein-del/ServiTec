@@ -9,6 +9,7 @@
         public decimal PutSubtotal { get; set; }
         public int PutIdComanda { get; set; }
         public int PutIdProducte { get; set; }
+        public string PutEstat { get; set; }
     }
 
     public class UpdateComandaDTO
@@ -67,6 +68,7 @@
             public int PutCapacitat { get; set; }
 
             public bool PutEstat { get; set; }
+            public string? PutEstatComanda { get; set; }
         }
     }
 

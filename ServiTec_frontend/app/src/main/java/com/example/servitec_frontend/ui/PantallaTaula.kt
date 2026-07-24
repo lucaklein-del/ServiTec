@@ -27,6 +27,7 @@ class PantallaTaula : AppCompatActivity() {
     private lateinit var adapterCentre: ComandaAdapter
     private lateinit var tvTotalPreu: TextView
     private lateinit var btnEnviar : Button
+    private lateinit var  btnCobrar : Button
     private lateinit var bntSorir : Button
     private lateinit var mostrarNumeroTaula: TextView
 
@@ -45,6 +46,7 @@ class PantallaTaula : AppCompatActivity() {
 
         tvTotalPreu = findViewById(R.id.tvTotalPrecio)
         btnEnviar = findViewById(R.id.btnEnviar)
+        btnCobrar = findViewById(R.id.btnCobrar)
         bntSorir = findViewById(R.id.btnVolver)
         mostrarNumeroTaula = findViewById(R.id.tvTituloMesa)
 
@@ -162,6 +164,33 @@ class PantallaTaula : AppCompatActivity() {
 
                 btnEnviar.isEnabled = true
                 finish()
+            }
+        }
+
+        btnCobrar.setOnClickListener {
+            if (idComandaActiva == -1) {
+                Toast.makeText(this, "No hi ha cap comanda activa per cobrar", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            lifecycleScope.launch {
+                btnCobrar.isEnabled = false
+                val cobrado = repository.cobrarComanda(idComandaActiva)
+
+                if (cobrado) {
+                    Toast.makeText(this@PantallaTaula, "Mesa cobrada correctament!", Toast.LENGTH_LONG).show()
+
+                    // Limpiamos los productos locales de la pantalla
+                    productesSeleccionats.clear()
+                    adapterCentre.actualitzarLlista(productesSeleccionats)
+                    actualitzarTotalInterficie()
+
+                    // Cerramos la pantalla para volver al panel general
+                    finish()
+                } else {
+                    Toast.makeText(this@PantallaTaula, "Error al cobrar la comanda", Toast.LENGTH_SHORT).show()
+                }
+                btnCobrar.isEnabled = true
             }
         }
 
