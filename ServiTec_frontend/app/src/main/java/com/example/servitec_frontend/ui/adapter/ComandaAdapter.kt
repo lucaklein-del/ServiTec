@@ -38,7 +38,7 @@ class ComandaAdapter(
 
     // Función para refrescar el centro cada vez que añadimos un producto
     fun actualitzarLlista(novaLlista: List<LiniaComandaTemporal>) {
-        this.llista = novaLlista
+        this.llista = novaLlista.toList()
         notifyDataSetChanged()
     }
 }

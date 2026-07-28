@@ -4,7 +4,7 @@
     <item android:state_selected="true" android:color="@color/taula_ocupada2" />
 
     <!-- 2. Estado PENDIENTE (Amarillo) -->
-    <item android:state_activated="true" android:color="taula_pendent" /> <!-- O @color/taula_pendent -->
+    <item android:state_activated="true" android:color="@color/taula_pendent" /> <!-- O @color/taula_pendent -->
 
     <!-- 3. Estado LIBRE (Azul por defecto) -->
     <item android:color="#1E3A8A" />

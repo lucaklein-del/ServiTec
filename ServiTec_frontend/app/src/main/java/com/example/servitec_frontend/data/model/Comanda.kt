@@ -15,6 +15,26 @@ data class CreateComandaDTO(
     val postLinies: List<CreateLiniaComandaDTO>
 )
 
+data class LiniaComandaDTO(
+    val idLinia: Int? = null,
+    val idComanda: Int? = null,
+    val idProducte: Int,
+    val quantitat: Int,
+    val preuUnitari: Double,
+    val subtotal: Double,
+    val estat: String? = "Pendent"
+)
+
+data class ComandaDTO(
+    val idComanda: Int,
+    val dataCreacio: String?,
+    val estat: String,
+    val total: Double,
+    val idTaula: Int,
+    val idUsuari: Int,
+    val liniaComanda: List<LiniaComandaDTO>? = emptyList()
+)
+
 data class ResponseComnada(
     val idComanda: Int,
     val dataCreacio: String,

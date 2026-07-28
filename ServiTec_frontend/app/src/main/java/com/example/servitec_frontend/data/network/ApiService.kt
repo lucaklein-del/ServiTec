@@ -1,7 +1,9 @@
 package com.example.servitec_frontend.data.network
 
 import com.example.servitec_frontend.data.model.Categoria
+import com.example.servitec_frontend.data.model.ComandaDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
+import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
 import com.example.servitec_frontend.data.model.Producte
 import com.example.servitec_frontend.data.model.ResponseComnada
@@ -52,5 +54,9 @@ interface ApiService {
 
     @PUT("api/comanda/{idComanda}/cobrar")
     suspend fun cobrarComanda(@Path("idComanda") idComanda: Int): Response<ResponseBody>
+
+    // ApiService.kt
+    @POST("api/Comanda/{id}/linies")
+    suspend fun afegirLinies(@Path("id") idComanda: Int, @Body linies: List<CreateLiniaComandaDTO>): Response<ComandaDTO>
 }
 

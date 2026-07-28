@@ -1,7 +1,9 @@
 package com.example.servitec_frontend.repository
 
 import com.example.servitec_frontend.data.model.Categoria
+import com.example.servitec_frontend.data.model.ComandaDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
+import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.Producte
 import com.example.servitec_frontend.data.model.ResponseComnada
 import com.example.servitec_frontend.data.model.Taula
@@ -75,6 +77,19 @@ class TaulaRepository {
             response.isSuccessful
         } catch (e: Exception) {
             false
+        }
+    }
+
+    suspend fun afegirLinies(idComanda: Int, linies: List<CreateLiniaComandaDTO>): Result<ComandaDTO> {
+        return try {
+            val response = apiService.afegirLinies(idComanda, linies)
+            if (response.isSuccessful && response.body() != null) {
+                Result.success(response.body()!!)
+            } else {
+                Result.failure(Exception("Error en el servidor: ${response.code()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 }

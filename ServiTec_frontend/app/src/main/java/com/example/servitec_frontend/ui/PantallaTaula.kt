@@ -35,7 +35,7 @@ class PantallaTaula : AppCompatActivity() {
     private var totsElsProductes = listOf<Producte>()
     private val repository = TaulaRepository()
 
-    // El "carrito" local en memoria
+    private val historialGuardat = mutableListOf<LiniaComandaTemporal>()
     private val productesSeleccionats = mutableListOf<LiniaComandaTemporal>()
 
     // Guardem la ID de la comanda si la taula ja està ocupada (Útil per a futures actualitzacions)
@@ -87,7 +87,7 @@ class PantallaTaula : AppCompatActivity() {
                     comandaActiva.liniaComanda?.forEach { linea ->
                         val prod = linea.idProducteNavigation
                         if (prod != null) {
-                            productesSeleccionats.add(
+                            historialGuardat.add(
                                 LiniaComandaTemporal(
                                     producte = prod,
                                     quantitat = linea.quantitat,
@@ -99,7 +99,7 @@ class PantallaTaula : AppCompatActivity() {
                     }
 
                     // Notifiquem al teu adaptador del centre per pintar els productes de la BD
-                    adapterCentre.actualitzarLlista(productesSeleccionats)
+                    adapterCentre.actualitzarLlista(historialGuardat)
 
                     // Actualitzem el TextView amb el preu total que ve del Back-end
                     tvTotalPreu.text = "${String.format("%.2f", comandaActiva.total)}€"
@@ -126,48 +126,66 @@ class PantallaTaula : AppCompatActivity() {
 
             Log.d("DEBUG_CENTRE", "Producte: ${productoPulsado.nom} | Qtd: ${itemExistente?.quantitat ?: 1} | Total Línia: ${itemExistente?.total ?: productoPulsado.preu}€")
 
-            adapterCentre.actualitzarLlista(productesSeleccionats)
             actualitzarTotalInterficie()
         }
         rvProductes.adapter = adapterProductes
 
         btnEnviar.setOnClickListener {
+            // 1. Verificamos que la cesta de la sesión actual no esté vacía
             if (productesSeleccionats.isEmpty()) {
-                Toast.makeText(this, "No pots enviar una comanda buida", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No hi ha cap producte nou per enviar a cuina", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val liniesDto = productesSeleccionats.map { l ->
-                CreateLiniaComandaDTO(
-                    postIdProducte = l.producte.idProducte,
-                    postQuantitat = l.quantitat,
-                    postEstat = l.estat
-                )
-            }
-
-            val novaComandaDto = CreateComandaDTO(
-                postEstat = "oberta",
-                postIdTaula = idTaulaActual,
-                postIdUsuari = idUsuariActual,
-                postLinies = liniesDto
-            )
-
             lifecycleScope.launch {
-                btnEnviar.isEnabled = false // Evitem doble clic erroni
+                btnEnviar.isEnabled = false // Evitamos duplicar peticiones por doble clic
 
-                val exit = repository.enviarComanda(novaComandaDto)
+                // 2. Mapeamos ÚNICAMENTE los productos nuevos seleccionados en esta ronda
+                val novesLiniesDto = productesSeleccionats.map { l ->
+                    CreateLiniaComandaDTO(
+                        postIdProducte = l.producte.idProducte,
+                        postQuantitat = l.quantitat,
+                        postEstat = "Pendent" // Marcamos como 'Pendent' para que cocina sepa que es nuevo
+                    )
+                }
 
+                // 3. Consultamos si la mesa ya tiene comanda activa en la BD
+                val comandaActiva = repository.obtenirComandaActiva(idTaulaActual)
+                val idComandaActiva = comandaActiva?.idComanda ?: -1
+
+                val exit: Boolean
+
+                if (taulaOcupada && idComandaActiva > 0) {
+                    // 🔄 MESA OCUPADA: Enviamos SOLO las nuevas líneas a la comanda existente
+                    // (Las líneas anteriores ya están guardadas en la BD y NO se reenvían)
+                    val resultat = repository.afegirLinies(idComandaActiva, novesLiniesDto)
+                    exit = resultat.isSuccess
+                } else {
+                    // 🆕 MESA LIBRE: Creamos la comanda inicial desde cero
+                    val novaComandaDto = CreateComandaDTO(
+                        postEstat = "oberta",
+                        postIdTaula = idTaulaActual,
+                        postIdUsuari = idUsuariActual,
+                        postLinies = novesLiniesDto
+                    )
+                    exit = repository.enviarComanda(novaComandaDto)
+                }
+
+                // 4. Gestión del resultado
                 if (exit) {
                     Toast.makeText(this@PantallaTaula, "Comanda enviada a cuina correctament!", Toast.LENGTH_LONG).show()
+
+                    // Limpiamos la cesta temporal de la pantalla
                     productesSeleccionats.clear()
                     adapterCentre.actualitzarLlista(productesSeleccionats)
                     actualitzarTotalInterficie()
+
+                    finish() // Volvemos al mapa de mesas
                 } else {
-                    Toast.makeText(this@PantallaTaula, "Error al conectar amb el servidor", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@PantallaTaula, "Error en connectar amb el servidor", Toast.LENGTH_LONG).show()
                 }
 
                 btnEnviar.isEnabled = true
-                finish()
             }
         }
 
@@ -228,7 +246,15 @@ class PantallaTaula : AppCompatActivity() {
 
     // Funció auxiliar per calcular i refrescar el total a la UI de forma neta
     private fun actualitzarTotalInterficie() {
-        val granTotal = productesSeleccionats.sumOf { it.total }
+        val totsElsItems = mutableListOf<LiniaComandaTemporal>()
+        totsElsItems.addAll(historialGuardat)       // Lo que ya estaba en la BD
+        totsElsItems.addAll(productesSeleccionats)  // Los nuevos (donde ya va el Café con quantitat = 2)
+
+        // Le pasamos la lista lista al adapter central
+        adapterCentre.actualitzarLlista(totsElsItems)
+
+        // Actualizamos el total de abajo
+        val granTotal = totsElsItems.sumOf { it.total }
         tvTotalPreu.text = "${String.format("%.2f", granTotal)}€"
     }
 }

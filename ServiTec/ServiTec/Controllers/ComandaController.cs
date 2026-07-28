@@ -220,5 +220,34 @@ namespace ServiTec.Controllers
 
             return Ok(new { missatge = "Comanda cobrada i tancada correctament" });
         }
+
+        [HttpPost("{idComanda}/linies")]
+        public async Task<IActionResult> AfegirLinies(int idComanda, [FromBody] List<CreateLiniaComandaDTO> novesLinies)
+        {
+            if (novesLinies == null || !novesLinies.Any())
+            {
+                return BadRequest("La llista de productes no pot estar buida.");
+            }
+
+            try
+            {
+                var comandaActualitzada = await _comandaService.AfegirLiniesAComanda(idComanda, novesLinies);
+
+                if (comandaActualitzada == null)
+                {
+                    return NotFound($"No s'ha trobat cap comanda amb l'ID {idComanda}");
+                }
+
+                return Ok(comandaActualitzada);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error intern del servidor: {ex.Message}");
+            }
+        }
     }
 }

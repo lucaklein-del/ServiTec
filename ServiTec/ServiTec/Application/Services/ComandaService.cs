@@ -162,11 +162,11 @@ public class ComandaService
 
     public async Task<Comanda?> ObtenirComandaActivaSegonsTaulaAsync(int idTaula)
     {
-        // 🎇 Al atacar directamente a _context, EF sí traduce los Includes a JOINs reales en SQL
         return await _context.Comanda
             .Include(c => c.LiniaComanda)
                 .ThenInclude(lc => lc.IdProducteNavigation)
-            .FirstOrDefaultAsync(c => c.IdTaula == idTaula && c.Estat == "oberta" || c.Estat == "pendent");
+            .FirstOrDefaultAsync(c => c.IdTaula == idTaula &&
+                                     (c.Estat == "oberta" || c.Estat == "pendent"));
     }
 
     public async Task<List<ComandaCuinaDTO>> ObtenirComandesCuinaAsync()
@@ -259,5 +259,52 @@ public class ComandaService
 
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<Comanda?> AfegirLiniesAComanda(int idComanda, List<CreateLiniaComandaDTO> novesLiniesDto)
+    {
+        // 1. Buscamos solo la cabecera de la comanda (SIN Include de líneas)
+        var comanda = await _context.Comanda.FindAsync(idComanda);
+        if (comanda == null)
+        {
+            throw new ArgumentException("La comanda no existe.");
+        }
+
+        decimal totalAdicional = 0;
+        var novesEntitatsLinia = new List<LiniaComanda>();
+
+        // 2. Procesamos SOLO las nuevas líneas enviadas desde Android
+        foreach (var liniaDto in novesLiniesDto)
+        {
+            var producte = await _productRepository.GetById(liniaDto.PostIdProducte);
+            if (producte != null)
+            {
+                decimal preuUnitari = (decimal)producte.Preu;
+                decimal subtotal = preuUnitari * liniaDto.PostQuantitat;
+
+                totalAdicional += subtotal;
+
+                novesEntitatsLinia.Add(new LiniaComanda
+                {
+                    IdComanda = idComanda,
+                    IdProducte = liniaDto.PostIdProducte,
+                    Quantitat = liniaDto.PostQuantitat,
+                    PreuUnitari = preuUnitari,
+                    Subtotal = subtotal,
+                    Estat = liniaDto.PostEstat ?? "Pendent"
+                });
+            }
+        }
+
+        // 3. Insertamos directamente la lista de líneas NUEVAS en el DbSet de LiniaComanda
+        await _context.LiniaComanda.AddRangeAsync(novesEntitatsLinia);
+
+        // 4. Actualizamos el total de la comanda principal
+        comanda.Total += totalAdicional;
+
+        // 5. Guardamos en la base de datos de una sola vez
+        await _context.SaveChangesAsync();
+
+        return comanda;
     }
 }

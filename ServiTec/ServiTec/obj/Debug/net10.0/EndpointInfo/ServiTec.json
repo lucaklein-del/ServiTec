@@ -521,6 +521,57 @@
         }
       }
     },
+    "/api/Comanda/{idComanda}/linies": {
+      "post": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "idComanda",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CreateLiniaComandaDTO"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CreateLiniaComandaDTO"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CreateLiniaComandaDTO"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/LiniaComanda/llistar": {
       "get": {
         "tags": [

@@ -137,6 +137,27 @@
   },
   {
     "ContainingType": "ServiTec.Controllers.ComandaController",
+    "Method": "AfegirLinies",
+    "RelativePath": "api/Comanda/{idComanda}/linies",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComanda",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "novesLinies",
+        "Type": "System.Collections.Generic.List\u00601[[ServiTec.Application.DTOs.CreateLiniaComandaDTO, ServiTec, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ServiTec.Controllers.ComandaController",
     "Method": "ObtenirComandaActiva",
     "RelativePath": "api/Comanda/activa/{idTaula}",
     "HttpMethod": "GET",
