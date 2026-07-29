@@ -1,5 +1,6 @@
 package com.example.servitec_frontend.repository
 
+import android.util.Log
 import com.example.servitec_frontend.data.model.Categoria
 import com.example.servitec_frontend.data.model.ComandaDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
@@ -90,6 +91,16 @@ class TaulaRepository {
             }
         } catch (e: Exception) {
             Result.failure(e)
+        }
+    }
+
+    suspend fun eliminarLiniaComanda(idLinia: Int): Boolean {
+        return try {
+            val response = apiService.eliminarLiniaComanda(idLinia)
+            response.isSuccessful
+        } catch (e: Exception) {
+            Log.e("TaulaRepository", "Error en eliminar línia de comanda: ${e.message}")
+            false
         }
     }
 }

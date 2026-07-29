@@ -24,6 +24,8 @@ class CuinaAdapter(
         val containerBebidas: LinearLayout = view.findViewById(R.id.containerBebidas)
         val containerPrimeros: LinearLayout = view.findViewById(R.id.containerPrimeros)
         val containerSegundos: LinearLayout = view.findViewById(R.id.containerSegundos)
+        val containerPostres : LinearLayout = view.findViewById(R.id.containerPostres)
+        val containerCafes : LinearLayout = view.findViewById(R.id.containerCafes)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CuinaViewHolder {
@@ -49,6 +51,8 @@ class CuinaAdapter(
         holder.containerBebidas.removeAllViews()
         holder.containerPrimeros.removeAllViews()
         holder.containerSegundos.removeAllViews()
+        holder.containerPostres.removeAllViews()
+        holder.containerCafes.removeAllViews()
 
         // Contador para llevar el control local de platos activos en este ticket
         var platsPendentsInTicket = comanda.linies.size
@@ -105,6 +109,8 @@ class CuinaAdapter(
                 1 -> holder.containerBebidas.addView(tvPlato)
                 2 -> holder.containerPrimeros.addView(tvPlato)
                 3 -> holder.containerSegundos.addView(tvPlato)
+                4 -> holder.containerPostres.addView(tvPlato)
+                5 -> holder.containerCafes.addView(tvPlato)
                 else -> holder.containerPrimeros.addView(tvPlato)
             }
         }

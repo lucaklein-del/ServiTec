@@ -249,5 +249,23 @@ namespace ServiTec.Controllers
                 return StatusCode(500, $"Error intern del servidor: {ex.Message}");
             }
         }
+
+        [HttpPut("linia/{idLinia}/eliminar")]
+        public async Task<IActionResult> EliminarLiniaComanda(int idLinia)
+        {
+            if (idLinia <= 0)
+            {
+                return BadRequest(new { missatge = "ID de línia invàlid." });
+            }
+
+            var exit = await _comandaService.EliminarLiniaComandaAsync(idLinia);
+
+            if (!exit)
+            {
+                return NotFound(new { missatge = "No s'ha trobat la línia de comanda especificada." });
+            }
+
+            return Ok(new { missatge = "Línia de comanda eliminada correctament i total actualitzat." });
+        }
     }
 }

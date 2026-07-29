@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:text="Panel de cuina"
+            android:text="Panell de cuina"
             android:textColor="#A0B2C6"
             android:textSize="12sp" />
 
@@ -43,11 +43,11 @@
             android:id="@+id/btnCerrarSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="← Cerrar sesión"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            android:text="← Tancar sesió"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <!-- ⬜ PANEL CENTRAL: Lista horizontal / Grid de Comandas de Cocina -->
@@ -61,11 +61,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comandas Activas"
+            android:layout_marginBottom="12dp"
+            android:text="Comandes Actives"
             android:textColor="#1B3B6F"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
+            android:textStyle="bold" />
 
         <!-- RecyclerView para scroll horizontal de tarjetas de comandas -->
         <androidx.recyclerview.widget.RecyclerView

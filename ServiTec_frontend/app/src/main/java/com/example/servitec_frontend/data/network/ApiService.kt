@@ -58,5 +58,9 @@ interface ApiService {
     // ApiService.kt
     @POST("api/Comanda/{id}/linies")
     suspend fun afegirLinies(@Path("id") idComanda: Int, @Body linies: List<CreateLiniaComandaDTO>): Response<ComandaDTO>
+
+    @PUT("api/Comanda/linia/{idLinia}/eliminar")
+    suspend fun eliminarLiniaComanda(@Path("idLinia") idLinia: Int): Response<ResponseBody>
 }
+
 

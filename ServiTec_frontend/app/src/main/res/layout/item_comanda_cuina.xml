@@ -23,10 +23,10 @@
                 android:id="@+id/tvNumTaula"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mesa 1"
+                android:text="Taula 1"
+                android:textColor="#000000"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvHoraComanda"
@@ -34,62 +34,96 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="14:30"
-                android:textSize="14sp"
-                android:textColor="#666666" />
+                android:textColor="#666666"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#DDDDDD"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="12dp"
+            android:background="#DDDDDD" />
 
-        <!-- Sección 1: Bebidas / Entrantes -->
+        <!-- Sección 1: Bebidas -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="BEBIDAS / ENTRANTES"
-            android:textSize="11sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="6dp"
+            android:text="BEGUDES"
             android:textColor="#007ACC"
-            android:layout_marginBottom="4dp" />
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/containerBebidas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical" />
 
         <!-- Sección 2: Primeros Platos -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PRIMEROS"
-            android:textSize="11sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="6dp"
+            android:text="PRIMERS"
             android:textColor="#007ACC"
-            android:layout_marginBottom="4dp" />
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/containerPrimeros"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical" />
 
         <!-- Sección 3: Segundos Platos -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SEGUNDOS"
-            android:textSize="11sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="6dp"
+            android:text="SEGONS"
             android:textColor="#007ACC"
-            android:layout_marginBottom="4dp" />
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/containerSegundos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical" />
+
+        <!-- Sección 4: Postres -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="POSTRES"
+            android:textColor="#007ACC"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/containerPostres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical" />
+
+        <!-- Sección 5: Cafés -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="CAFÈS"
+            android:textColor="#007ACC"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/containerCafes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

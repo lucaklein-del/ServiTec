@@ -307,4 +307,38 @@ public class ComandaService
 
         return comanda;
     }
+
+    public async Task<bool> EliminarLiniaComandaAsync(int idLiniaComanda)
+{
+    // 1. Cercar la línia de comanda a la BD incloent la comanda pare
+    var linia = await _context.LiniaComanda
+        .Include(l => l.IdComandaNavigation)
+        .FirstOrDefaultAsync(l => l.IdLinia == idLiniaComanda);
+
+    if (linia == null)
+    {
+        return false; // No existeix la línia
+    }
+
+    // 2. Canviar els camps requerits
+    linia.Estat = "Eliminat";
+    linia.PreuUnitari = 0;
+    linia.Subtotal = 0;
+    linia.Quantitat = 0;
+
+    // 3. Recalcular el total general de la comanda pare (sumant només les línies no eliminades)
+    var comandaPare = linia.IdComandaNavigation;
+    if (comandaPare != null)
+    {
+        var liniesActives = await _context.LiniaComanda
+            .Where(l => l.IdComanda == comandaPare.IdComanda && l.Estat != "Eliminat" && l.IdLinia != idLiniaComanda)
+            .ToListAsync();
+
+        comandaPare.Total = liniesActives.Sum(l => l.Subtotal);
+    }
+
+    // 4. Guardar canvis a SQL Server
+    await _context.SaveChangesAsync();
+    return true;
+}
 }

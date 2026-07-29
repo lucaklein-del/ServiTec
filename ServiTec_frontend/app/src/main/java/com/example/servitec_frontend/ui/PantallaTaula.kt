@@ -3,6 +3,7 @@ package com.example.servitec_frontend.ui
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,8 @@ class PantallaTaula : AppCompatActivity() {
     // Guardem la ID de la comanda si la taula ja està ocupada (Útil per a futures actualitzacions)
     private var idComandaActiva = -1
 
+    private var producteBorrar: LiniaComandaTemporal? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pantalla_taula)
@@ -56,6 +59,7 @@ class PantallaTaula : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("ServiTecPrefs", MODE_PRIVATE)
         val idUsuariActual = sharedPreferences.getInt("idUsuari", -1)
         val taulaOcupada = intent.getBooleanExtra("taulaOcupada", false)
+        val btnBorrar = findViewById<ImageButton>(R.id.btnBorrarProductos)
 
         mostrarNumeroTaula.text = nTaulaActual
 
@@ -66,7 +70,10 @@ class PantallaTaula : AppCompatActivity() {
         // 2. Configuración del RecyclerView del Centro (Tu comanda actual)
         val rvCentre = findViewById<RecyclerView>(R.id.rvSeleccionProductos)
         rvCentre.layoutManager = LinearLayoutManager(this)
-        adapterCentre = ComandaAdapter(productesSeleccionats)
+        adapterCentre = ComandaAdapter(emptyList()) { itemPulsat ->
+            producteBorrar = itemPulsat
+            Toast.makeText(this, "Seleccionat: ${itemPulsat.producte.nom}, ${itemPulsat.idLiniaComanda}", Toast.LENGTH_SHORT).show()
+        }
         rvCentre.adapter = adapterCentre
 
         // 3. Configuración del RecyclerView de Productos (Derecha / Cuadrícula)
@@ -89,10 +96,11 @@ class PantallaTaula : AppCompatActivity() {
                         if (prod != null) {
                             historialGuardat.add(
                                 LiniaComandaTemporal(
+                                    idLiniaComanda = linea.idLiniaComanda,
                                     producte = prod,
                                     quantitat = linea.quantitat,
                                     total = linea.subtotal,
-                                    estat = "Pendent"
+                                    estat = linea.estat ?: "Enviat"
                                 )
                             )
                         }
@@ -120,7 +128,7 @@ class PantallaTaula : AppCompatActivity() {
                     producte = productoPulsado,
                     quantitat = 1,
                     total = totalInicial,
-                    estat = "Pendent"
+                    estat = "pendentEnviar"
                 ))
             }
 
@@ -145,7 +153,7 @@ class PantallaTaula : AppCompatActivity() {
                     CreateLiniaComandaDTO(
                         postIdProducte = l.producte.idProducte,
                         postQuantitat = l.quantitat,
-                        postEstat = "Pendent" // Marcamos como 'Pendent' para que cocina sepa que es nuevo
+                        postEstat = l.estat // Marcamos como 'Pendent' para que cocina sepa que es nuevo
                     )
                 }
 
@@ -240,6 +248,53 @@ class PantallaTaula : AppCompatActivity() {
                 }
             } else {
                 Toast.makeText(this@PantallaTaula, "Error al cargar los datos del servidor", Toast.LENGTH_LONG).show()
+            }
+
+
+            btnBorrar.setOnClickListener {
+                val elemento = producteBorrar
+
+                if (elemento != null) {
+                    // Només permetem esborrar productes que encara NO s'hagin enviat a cuina
+                    if (elemento.idLiniaComanda == 0 || elemento.estat == "pendentEnviar") {
+                        // 1. L'eliminem de la llista de la sessió actual
+                        productesSeleccionats.remove(elemento)
+
+                        // 2. ResResetegem la variable del producte seleccionat
+                        producteBorrar = null
+
+                        // 3. Treiem el ressaltat blau de l'adapter
+                        adapterCentre.netejarSeleccio()
+
+                        // 4. Recalculem el total i refresquem la vista
+                        actualitzarTotalInterficie()
+
+                        Toast.makeText(this@PantallaTaula, "Producte eliminat", Toast.LENGTH_SHORT).show()
+                    } else {
+                        lifecycleScope.launch {
+                            btnBorrar.isEnabled = false
+
+                            val exit = repository.eliminarLiniaComanda(elemento.idLiniaComanda)
+
+                            if (exit) {
+                                elemento.estat = "Eliminat"
+                                elemento.total = 0.0
+
+                                producteBorrar = null
+                                adapterCentre.netejarSeleccio()
+                                actualitzarTotalInterficie()
+
+                                Toast.makeText(
+                                    this@PantallaTaula,
+                                    "Producte marcat com a eliminat",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                } else {
+                    Toast.makeText(this@PantallaTaula, "Selecciona un producte de la comanda per esborrar", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

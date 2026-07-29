@@ -3,6 +3,7 @@ package com.example.servitec_frontend.data.model
 import com.google.gson.annotations.SerializedName
 
 data class LiniaComandaTemporal(
+    val idLiniaComanda: Int = 0,
     val producte: Producte,
     var quantitat: Int,
     var total: Double,

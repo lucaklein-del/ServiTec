@@ -16,6 +16,7 @@ data class CreateComandaDTO(
 )
 
 data class LiniaComandaDTO(
+    @SerializedName(value = "idLinia", alternate = ["idLiniaComanda", "IdLinia", "IdLiniaComanda"])
     val idLinia: Int? = null,
     val idComanda: Int? = null,
     val idProducte: Int,
@@ -47,11 +48,13 @@ data class ResponseComnada(
 )
 
 data class ResponseLiniaComanda(
-    val idLiniaComanda: Int,
+    @SerializedName(value = "idLiniaComanda", alternate = ["idLinia", "IdLinia", "IdLiniaComanda"])
+    val idLiniaComanda: Int = 0,
     val quantitat: Int,
     val preuUnitari: Double,
     val subtotal: Double,
     val idProducte: Int,
+    val estat: String,
     // Mapeamos el objeto producto que va dentro de la línea
     val idProducteNavigation: Producte? = null
 )

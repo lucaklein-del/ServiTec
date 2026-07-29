@@ -273,6 +273,22 @@
   },
   {
     "ContainingType": "ServiTec.Controllers.ComandaController",
+    "Method": "EliminarLiniaComanda",
+    "RelativePath": "api/Comanda/linia/{idLinia}/eliminar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idLinia",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ServiTec.Controllers.ComandaController",
     "Method": "CanviarEstatLinia",
     "RelativePath": "api/Comanda/linia/{idLinia}/estat",
     "HttpMethod": "PUT",

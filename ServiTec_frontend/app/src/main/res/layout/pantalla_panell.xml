@@ -25,10 +25,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Panel de control"
+            android:layout_marginBottom="40dp"
+            android:text="Panell de control"
             android:textColor="#A0FFFFFF"
-            android:textSize="12sp"
-            android:layout_marginBottom="40dp"/>
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:padding="12dp"
-            android:text="TERRAZA"
+            android:text="TERRASSA"
             android:textColor="#A0FFFFFF" />
 
         <Space
@@ -57,11 +57,11 @@
             android:id="@+id/btnCerrarSesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="← Cerrar sesión"
-            android:textColor="@color/white"
-            android:padding="12dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:padding="12dp"
+            android:text="← Tancar Sessió"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,8 +75,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="20dp">
-            <View android:layout_width="12dp" android:layout_height="12dp" android:background="#A8E6CF" android:layout_marginEnd="8dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Libre" android:layout_marginEnd="20dp" android:textSize="12sp"/>
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/taula_lliure" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="Lliure"
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="12dp"
@@ -112,7 +123,7 @@
                 android:layout_marginStart="432dp"
                 android:layout_marginTop="148dp"
                 android:background="@drawable/bg_taula_8pax"
-                android:text="Mesa 10\n(8 Pax)"
+                android:text="Taula 10\n(8 Pax)"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -125,10 +136,10 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="52dp"
                 android:background="@drawable/bg_taula_4pax"
-                android:text="Mesa 11\n(4 Pax)"
+                android:text="Taula 11\n(4 Pax)"
                 android:textColor="#FFFFFF"
-                android:textStyle="bold"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.916"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,10 +152,10 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/bg_taula_4pax"
-                android:text="Mesa 12\n(4 Pax)"
+                android:text="Taula 12\n(4 Pax)"
                 android:textColor="#FFFFFF"
-                android:textStyle="bold"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -155,7 +166,7 @@
                 android:layout_marginStart="432dp"
                 android:layout_marginTop="404dp"
                 android:background="@drawable/bg_taula_6pax"
-                android:text="Mesa 13\n(6 Pax)"
+                android:text="Taula 13\n(6 Pax)"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -169,7 +180,7 @@
                 android:layout_marginStart="72dp"
                 android:layout_marginTop="500dp"
                 android:background="@drawable/bg_taula_2pax"
-                android:text="Mesa 14\n(2 Pax)"
+                android:text="Taula 14\n(2 Pax)"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -183,7 +194,7 @@
                 android:layout_marginStart="760dp"
                 android:layout_marginTop="512dp"
                 android:background="@drawable/bg_taula_2pax"
-                android:text="Mesa 15\n(2 Pax)"
+                android:text="Taula 15\n(2 Pax)"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold"

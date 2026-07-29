@@ -572,6 +572,29 @@
         }
       }
     },
+    "/api/Comanda/linia/{idLinia}/eliminar": {
+      "put": {
+        "tags": [
+          "Comanda"
+        ],
+        "parameters": [
+          {
+            "name": "idLinia",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/LiniaComanda/llistar": {
       "get": {
         "tags": [
