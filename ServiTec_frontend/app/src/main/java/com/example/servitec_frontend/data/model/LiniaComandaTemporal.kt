@@ -6,6 +6,7 @@ data class LiniaComandaTemporal(
     val idLiniaComanda: Int = 0,
     val producte: Producte,
     var quantitat: Int,
+    var preu: Double,
     var total: Double,
     var estat: String
 )

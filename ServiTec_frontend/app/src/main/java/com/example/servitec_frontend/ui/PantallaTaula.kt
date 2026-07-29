@@ -99,6 +99,7 @@ class PantallaTaula : AppCompatActivity() {
                                     idLiniaComanda = linea.idLiniaComanda,
                                     producte = prod,
                                     quantitat = linea.quantitat,
+                                    preu = linea.preuUnitari,
                                     total = linea.subtotal,
                                     estat = linea.estat ?: "Enviat"
                                 )
@@ -127,6 +128,7 @@ class PantallaTaula : AppCompatActivity() {
                 productesSeleccionats.add(LiniaComandaTemporal(
                     producte = productoPulsado,
                     quantitat = 1,
+                    preu = productoPulsado.preu,
                     total = totalInicial,
                     estat = "pendentEnviar"
                 ))
@@ -256,7 +258,7 @@ class PantallaTaula : AppCompatActivity() {
 
                 if (elemento != null) {
                     // Només permetem esborrar productes que encara NO s'hagin enviat a cuina
-                    if (elemento.idLiniaComanda == 0 || elemento.estat == "pendentEnviar") {
+                    if (elemento.idLiniaComanda == 0) {
                         // 1. L'eliminem de la llista de la sessió actual
                         productesSeleccionats.remove(elemento)
 
@@ -277,12 +279,21 @@ class PantallaTaula : AppCompatActivity() {
                             val exit = repository.eliminarLiniaComanda(elemento.idLiniaComanda)
 
                             if (exit) {
-                                elemento.estat = "Eliminat"
-                                elemento.total = 0.0
+                                if (elemento.quantitat == 1) {
+                                    elemento.quantitat -= 1
+                                    elemento.estat = "Eliminat"
+                                    elemento.total = 0.0
+                                }
+                                else{
+                                    elemento.quantitat -= 1
+                                    elemento.total -= elemento.preu
+                                }
+
 
                                 producteBorrar = null
                                 adapterCentre.netejarSeleccio()
                                 actualitzarTotalInterficie()
+                                btnBorrar.isEnabled = true
 
                                 Toast.makeText(
                                     this@PantallaTaula,
