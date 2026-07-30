@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="#F8FAFC">
 
+    <!-- 1. HEADER SUPERIOR -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
@@ -58,139 +59,359 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- 2. CONTENIDO PRINCIPAL EN 3 COLUMNAS -->
     <LinearLayout
         android:id="@+id/layoutColumnas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader"
-        app:layout_constraintBottom_toTopOf="@id/layoutFooter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- COLUMNA 1 (IZQUIERDA): Categorías -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCategorias"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:background="?android:attr/windowSplashScreenBackground"
-            android:padding="8dp"
-            tools:listitem="" />
+            android:padding="8dp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="#E2E8F0"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSeleccionProductos"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4.5"
-            android:padding="8dp"
-            tools:listitem="" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#E2E8F0"/>
-
-        <!-- Columna 3: Comanda central amb el botó de la paperera -->
+        <!-- COLUMNA 2 (CENTRO): Ticket (rvPedido) + Total + Botones Enviar/Cobrar -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:background="?android:attr/windowSplashScreenBackground"
+            android:background="#FFFFFF"
+            android:elevation="1dp"
             android:orientation="vertical">
 
-            <!-- Capçalera de la comanda amb icona d'esborrar -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="4dp">
-
-                <ImageButton
-                    android:id="@+id/btnBorrarProductos"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_alignParentEnd="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Esborrar productes seleccionats"
-                    android:src="@android:drawable/ic_menu_delete"
-                    app:tint="@color/primary_blue" />
-            </RelativeLayout>
-
+            <!-- Lista de items de la comanda actual -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPedido"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="8dp"
-                android:paddingBottom="8dp"
-                tools:listitem="" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutFooter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:elevation="8dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#E2E8F0"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Total"
-                android:textSize="18sp"
-                android:textColor="#1E293B"/>
+                android:padding="8dp" />
 
-            <TextView
-                android:id="@+id/tvTotalPrecio"
-                android:layout_width="wrap_content"
+            <!-- Bloque de Total y Acciones del Pedido -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0.00"
-                android:textColor="#1E293B"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:background="#F8FAFC">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#E2E8F0"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total"
+                        android:textSize="18sp"
+                        android:textColor="#1E293B"/>
+
+                    <TextView
+                        android:id="@+id/tvTotalPrecio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textColor="#1E293B"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnEnviar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="6dp"
+                    android:backgroundTint="#1E3A8A"
+                    android:text="✓   Enviar a cuina"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnCobrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:backgroundTint="#F1F5F9"
+                    android:text="$   Cobrar taula"
+                    android:textColor="#1E293B"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnEnviar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="#1E3A8A"
-            android:text="✓   Enviar a cuina"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#E2E8F0"/>
 
-        <Button
-            android:id="@+id/btnCobrar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:backgroundTint="#F1F5F9"
-            android:text="$   Cobrar taula"
-            android:textColor="#1E293B"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+        <!-- COLUMNA 3 (DERECHA): Carta de Productos (rvSeleccionProductos) + Teclado Numérico -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4.5"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Carta de productos a elegir -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSeleccionProductos"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingBottom="8dp" />
+
+            <!-- Teclado Numérico con espacio lateral (Papelera) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quantitat:"
+                            android:textSize="13sp"
+                            android:textColor="#64748B" />
+
+                        <TextView
+                            android:id="@+id/tvQuantitatTeclejada"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="1x"
+                            android:textColor="#1E3A8A"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Teclado Numérico -->
+                        <GridLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:columnCount="3"
+                            android:rowCount="4">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum7"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="7"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum8"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="8"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum9"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="9"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum4"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="4"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum5"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="5"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum6"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="6"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum1"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="1"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum2"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="2"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum3"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="3"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNumC"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="C"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#EF4444"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNum0"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="0"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#1E3A8A"
+                                app:cornerRadius="8dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNumBorrarUn"
+                                android:layout_width="0dp"
+                                android:layout_height="44dp"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="2dp"
+                                android:text="⌫"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                app:backgroundTint="#64748B"
+                                app:cornerRadius="8dp" />
+                        </GridLayout>
+
+                        <!-- Menú de acciones laterales (Papelera) -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingStart="6dp"
+                            android:gravity="top|center_horizontal">
+
+                            <ImageButton
+                                android:id="@+id/btnBorrarProductos"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="Esborrar productes seleccionats"
+                                android:src="@android:drawable/ic_menu_delete"
+                                app:tint="#1E3A8A" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,6 +44,10 @@ class PantallaTaula : AppCompatActivity() {
 
     private var producteBorrar: LiniaComandaTemporal? = null
 
+    private lateinit var tvQuantitat: TextView
+    private var quantitatTeclejada = "1"
+    private var quantitatEditada = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pantalla_taula)
@@ -53,6 +57,7 @@ class PantallaTaula : AppCompatActivity() {
         btnCobrar = findViewById(R.id.btnCobrar)
         bntSorir = findViewById(R.id.btnVolver)
         mostrarNumeroTaula = findViewById(R.id.tvTituloMesa)
+        tvQuantitat = findViewById(R.id.tvQuantitatTeclejada)
 
         val idTaulaActual = intent.getIntExtra("idTaula", -1)
         val nTaulaActual = intent.getStringExtra("nTaula") ?: "Taula"
@@ -68,7 +73,7 @@ class PantallaTaula : AppCompatActivity() {
         rvCategories.layoutManager = LinearLayoutManager(this)
 
         // 2. Configuración del RecyclerView del Centro (Tu comanda actual)
-        val rvCentre = findViewById<RecyclerView>(R.id.rvSeleccionProductos)
+        val rvCentre = findViewById<RecyclerView>(R.id.rvPedido)          // ✅ ahora sí es el centro
         rvCentre.layoutManager = LinearLayoutManager(this)
         adapterCentre = ComandaAdapter(emptyList()) { itemPulsat ->
             producteBorrar = itemPulsat
@@ -76,10 +81,15 @@ class PantallaTaula : AppCompatActivity() {
         }
         rvCentre.adapter = adapterCentre
 
-        // 3. Configuración del RecyclerView de Productos (Derecha / Cuadrícula)
-        val rvProductes = findViewById<RecyclerView>(R.id.rvPedido)
+// 3. Configuración del RecyclerView de Productos (Derecha / Cuadrícula)
+        val rvProductes = findViewById<RecyclerView>(R.id.rvSeleccionProductos)   // ✅ ahora sí es la derecha
         rvProductes.layoutManager = GridLayoutManager(this, 2)
 
+        val botonsNumeros = mapOf(
+            R.id.btnNum0 to "0", R.id.btnNum1 to "1", R.id.btnNum2 to "2", R.id.btnNum3 to "3",
+            R.id.btnNum4 to "4", R.id.btnNum5 to "5", R.id.btnNum6 to "6", R.id.btnNum7 to "7",
+            R.id.btnNum8 to "8", R.id.btnNum9 to "9",
+        )
         // 🎇 RECUPERACIÓ DE LA COMANDA ACTIVA SI LA TAULA ESTÀ OCUPADA
         if (taulaOcupada && idTaulaActual != -1) {
             lifecycleScope.launch {
@@ -116,23 +126,47 @@ class PantallaTaula : AppCompatActivity() {
             }
         }
 
+        botonsNumeros.forEach { (id, digit) ->
+            findViewById<com.google.android.material.button.MaterialButton>(id).setOnClickListener {
+                quantitatTeclejada = if (!quantitatEditada) {
+                    digit
+                } else {
+                    (quantitatTeclejada + digit).take(3) // límite de 3 dígitos, por ejemplo
+                }
+                quantitatEditada = true
+                tvQuantitat.text = "${quantitatTeclejada}x"
+            }
+        }
+
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.btnNumC).setOnClickListener {
+            quantitatTeclejada = "1"
+            quantitatEditada = false
+            tvQuantitat.text = "${quantitatTeclejada}x"
+        }
+
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.btnNumBorrarUn).setOnClickListener {
+            borrarNumeroTeclat()
+        }
+
         // Lógica del clic en los productos de la cuadrícula
         adapterProductes = ProductesAdapter(emptyList()) { productoPulsado ->
             val itemExistente = productesSeleccionats.find { it.producte.idProducte == productoPulsado.idProducte }
 
             if (itemExistente != null) {
-                itemExistente.quantitat++
+                itemExistente.quantitat += quantitatTeclejada.toInt()
                 itemExistente.total = itemExistente.producte.preu * itemExistente.quantitat
             } else {
                 val totalInicial = productoPulsado.preu * 1
                 productesSeleccionats.add(LiniaComandaTemporal(
                     producte = productoPulsado,
-                    quantitat = 1,
+                    quantitat = quantitatTeclejada.toInt(),
                     preu = productoPulsado.preu,
-                    total = totalInicial,
+                    total = quantitatTeclejada.toInt() * productoPulsado.preu,
                     estat = "pendentEnviar"
                 ))
             }
+
+            borrarNumeroTeclat()
 
             Log.d("DEBUG_CENTRE", "Producte: ${productoPulsado.nom} | Qtd: ${itemExistente?.quantitat ?: 1} | Total Línia: ${itemExistente?.total ?: productoPulsado.preu}€")
 
@@ -322,5 +356,16 @@ class PantallaTaula : AppCompatActivity() {
         // Actualizamos el total de abajo
         val granTotal = totsElsItems.sumOf { it.total }
         tvTotalPreu.text = "${String.format("%.2f", granTotal)}€"
+    }
+
+    private fun borrarNumeroTeclat(){
+        if (quantitatEditada) {
+            quantitatTeclejada = quantitatTeclejada.dropLast(1)
+            if (quantitatTeclejada.isEmpty()) {
+                quantitatTeclejada = "1"
+                quantitatEditada = false
+            }
+        }
+        tvQuantitat.text = "${quantitatTeclejada}x"
     }
 }
