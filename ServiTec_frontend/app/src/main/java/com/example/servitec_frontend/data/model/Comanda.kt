@@ -8,6 +8,10 @@ data class CreateLiniaComandaDTO(
     val postEstat: String
 )
 
+data class CanviarEstatDTO(
+    val nouEstat: String
+)
+
 data class CreateComandaDTO(
     val postEstat: String,
     val postIdTaula: Int,

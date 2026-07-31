@@ -55,7 +55,6 @@ interface ApiService {
     @PUT("api/comanda/{idComanda}/cobrar")
     suspend fun cobrarComanda(@Path("idComanda") idComanda: Int): Response<ResponseBody>
 
-    // ApiService.kt
     @POST("api/Comanda/{id}/linies")
     suspend fun afegirLinies(@Path("id") idComanda: Int, @Body linies: List<CreateLiniaComandaDTO>): Response<ComandaDTO>
 

@@ -175,10 +175,10 @@ public class ComandaService
             .Include(c => c.IdTaulaNavigation)
             .Include(c => c.LiniaComanda)
                 .ThenInclude(l => l.IdProducteNavigation)
-            // 1. Solo comandas en estado "Pendent" u "oberta"
-            .Where(c => c.Estat == "Pendent" || c.Estat == "oberta")
+            // 1. Solo comandas en estado "pendent" u "oberta"
+            .Where(c => c.Estat == "pendent" || c.Estat == "oberta")
             // 2. FILTRO CLAVE: Solo traer comandas que tengan AL MENOS UNA línea pendiente
-            .Where(c => c.LiniaComanda.Any(l => l.Estat == "Pendent"))
+            .Where(c => c.LiniaComanda.Any(l => l.Estat == "pendentEnviar"))
             .Select(c => new ComandaCuinaDTO
             {
                 IdComanda = c.IdComanda,
@@ -188,7 +188,7 @@ public class ComandaService
 
                 // 3. FILTRO CLAVE: Seleccionar ÚNICAMENTE las líneas pendientes
                 Linies = c.LiniaComanda
-                    .Where(l => l.Estat == "Pendent") // 👈 AQUÍ FILTRAMOS LAS LÍNEAS
+                    .Where(l => l.Estat == "pendentEnviar") // 👈 AQUÍ FILTRAMOS LAS LÍNEAS
                     .Select(l => new LiniaCuinaDTO
                     {
                         IdLiniaComanda = l.IdLinia,
@@ -221,37 +221,39 @@ public class ComandaService
 
         if (linia == null) return false;
 
-        // 1. Cambiar estado de la línea individual
         linia.Estat = nouEstat;
         _context.LiniaComanda.Update(linia);
         await _context.SaveChangesAsync();
-
-        // 2. Comprobar si quedan más líneas pendientes en esta comanda
-        var liniesPendents = await _context.LiniaComanda
-            .AnyAsync(l => l.IdComanda == linia.IdComanda && l.Estat == "Pendent");
-
-        // Si ya no quedan líneas pendientes, pasamos la comanda entera a "Pendent" (o "Servit")
-        if (!liniesPendents && linia.IdComandaNavigation != null)
-        {
-            linia.IdComandaNavigation.Estat = "pendent";
-            await _context.SaveChangesAsync();
-        }
 
         return true;
     }
 
     public async Task<bool> CobrarComandaAsync(int idComanda)
     {
+        // Cargar la comanda junto con sus líneas y la mesa asociada
         var comanda = await _context.Comanda
+            .Include(c => c.LiniaComanda)
             .Include(c => c.IdTaulaNavigation)
             .FirstOrDefaultAsync(c => c.IdComanda == idComanda);
 
         if (comanda == null) return false;
 
-        // 1. Cambiar estado de la comanda a "tancada"
-        comanda.Estat = "tancada";
+        // 1. Cambiar el estado de todas sus líneas a "Servit" usando CanviarEstatLiniaAsync
+        if (comanda.LiniaComanda != null)
+        {
+            // Creamos una copia de los IDs para iterar sin problemas de contexto
+            var idsLinies = comanda.LiniaComanda.Select(l => l.IdLinia).ToList();
 
-        // 2. Liberar la mesa asociada
+            foreach (var idLinia in idsLinies)
+            {
+                await CanviarEstatLiniaAsync(idLinia, "Servit");
+            }
+        }
+
+        // 2. Cambiar estado de la comanda a "tancada"
+        await CanviarEstatComandaAsync(comanda.IdComanda, "tancada");
+
+        // 3. Liberar la mesa asociada
         if (comanda.IdTaulaNavigation != null)
         {
             comanda.IdTaulaNavigation.Estat = true;

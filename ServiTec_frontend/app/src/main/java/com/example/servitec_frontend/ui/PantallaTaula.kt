@@ -21,7 +21,9 @@ import com.example.servitec_frontend.repository.TaulaRepository
 import com.example.servitec_frontend.ui.adapter.CategoriesAdapter
 import com.example.servitec_frontend.ui.adapter.ComandaAdapter
 import com.example.servitec_frontend.ui.adapter.ProductesAdapter
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 class PantallaTaula : AppCompatActivity() {
 
@@ -30,7 +32,9 @@ class PantallaTaula : AppCompatActivity() {
     private lateinit var tvTotalPreu: TextView
     private lateinit var btnEnviar : Button
     private lateinit var  btnCobrar : Button
+    private lateinit var btnSumarProdcute : Button
     private lateinit var bntSorir : Button
+    private lateinit var btnTreureCompte : Button
     private lateinit var mostrarNumeroTaula: TextView
 
     private var totsElsProductes = listOf<Producte>()
@@ -41,6 +45,7 @@ class PantallaTaula : AppCompatActivity() {
 
     // Guardem la ID de la comanda si la taula ja està ocupada (Útil per a futures actualitzacions)
     private var idComandaActiva = -1
+    private var estatComandaActiva = "oberta"
 
     private var producteBorrar: LiniaComandaTemporal? = null
 
@@ -54,8 +59,10 @@ class PantallaTaula : AppCompatActivity() {
 
         tvTotalPreu = findViewById(R.id.tvTotalPrecio)
         btnEnviar = findViewById(R.id.btnEnviar)
+        btnSumarProdcute = findViewById(R.id.btnSumarProducte)
         btnCobrar = findViewById(R.id.btnCobrar)
         bntSorir = findViewById(R.id.btnVolver)
+        btnTreureCompte = findViewById(R.id.btnTreureCompte)
         mostrarNumeroTaula = findViewById(R.id.tvTituloMesa)
         tvQuantitat = findViewById(R.id.tvQuantitatTeclejada)
 
@@ -64,7 +71,7 @@ class PantallaTaula : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("ServiTecPrefs", MODE_PRIVATE)
         val idUsuariActual = sharedPreferences.getInt("idUsuari", -1)
         val taulaOcupada = intent.getBooleanExtra("taulaOcupada", false)
-        val btnBorrar = findViewById<ImageButton>(R.id.btnBorrarProductos)
+        val btnBorrar = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnBorrarProductos)
 
         mostrarNumeroTaula.text = nTaulaActual
 
@@ -97,6 +104,7 @@ class PantallaTaula : AppCompatActivity() {
 
                 if (comandaActiva != null) {
                     idComandaActiva = comandaActiva.idComanda
+                    estatComandaActiva = comandaActiva.estat
 
                     // Netegem el carrito local abans de carregar les dades de SQL Server
                     productesSeleccionats.clear()
@@ -233,30 +241,90 @@ class PantallaTaula : AppCompatActivity() {
             }
         }
 
+        btnSumarProdcute.setOnClickListener {
+            if (historialGuardat.isEmpty() && productesSeleccionats.isEmpty()) {
+                Toast.makeText(this@PantallaTaula, "No hi ha productes", Toast.LENGTH_LONG).show()
+            }
+            else {
+                val elemento = producteBorrar
+                if (elemento != null) {
+                    // 1. Obtenemos el producto seleccionado (o el último si no hay selección)
+                    if (elemento.idLiniaComanda == 0) {
+                        // CASO A: Es de la comanda actual -> Sumamos 1 a la cantidad de esta misma línea
+                        elemento.quantitat += 1
+                        elemento.total = elemento.preu * elemento.quantitat
+                        adapterCentre.notifyDataSetChanged()
+                    } else {
+                        // CASO B: Es de una comanda anterior -> Creamos una línea nueva con 1 unidad
+                        productesSeleccionats.add(
+                            LiniaComandaTemporal(
+                                producte = elemento.producte,
+                                quantitat = 1,
+                                preu = elemento.preu,
+                                total = elemento.preu,
+                                estat = "pendentEnviar"
+                            )
+                        )
+                    }
+
+                    // 2. Recalculamos el importe total del ticket
+                    actualitzarTotalInterficie()
+                }
+            }
+        }
+
+        btnTreureCompte.setOnClickListener {
+            lifecycleScope.launch {
+                btnTreureCompte.isEnabled = false
+                if (idComandaActiva >= 1) {
+                    repository.cambiarEstatComanda(idComandaActiva, "pendent")
+                }
+                btnTreureCompte.isEnabled = true
+            }
+
+            productesSeleccionats.clear()
+            adapterCentre.actualitzarLlista(productesSeleccionats)
+            actualitzarTotalInterficie()
+
+            finish()
+        }
+
         btnCobrar.setOnClickListener {
             if (idComandaActiva == -1) {
                 Toast.makeText(this, "No hi ha cap comanda activa per cobrar", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            if (estatComandaActiva == "pendent") {
+                lifecycleScope.launch {
+                    btnCobrar.isEnabled = false
+                    val cobrado = repository.cobrarComanda(idComandaActiva)
 
-            lifecycleScope.launch {
-                btnCobrar.isEnabled = false
-                val cobrado = repository.cobrarComanda(idComandaActiva)
+                    if (cobrado) {
+                        Toast.makeText(
+                            this@PantallaTaula,
+                            "Mesa cobrada correctament!",
+                            Toast.LENGTH_LONG
+                        ).show()
 
-                if (cobrado) {
-                    Toast.makeText(this@PantallaTaula, "Mesa cobrada correctament!", Toast.LENGTH_LONG).show()
+                        // Limpiamos los productos locales de la pantalla
+                        productesSeleccionats.clear()
+                        adapterCentre.actualitzarLlista(productesSeleccionats)
+                        actualitzarTotalInterficie()
 
-                    // Limpiamos los productos locales de la pantalla
-                    productesSeleccionats.clear()
-                    adapterCentre.actualitzarLlista(productesSeleccionats)
-                    actualitzarTotalInterficie()
-
-                    // Cerramos la pantalla para volver al panel general
-                    finish()
-                } else {
-                    Toast.makeText(this@PantallaTaula, "Error al cobrar la comanda", Toast.LENGTH_SHORT).show()
+                        // Cerramos la pantalla para volver al panel general
+                        finish()
+                    } else {
+                        Toast.makeText(
+                            this@PantallaTaula,
+                            "Error al cobrar la comanda",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    btnCobrar.isEnabled = true
                 }
-                btnCobrar.isEnabled = true
+            }
+            else{
+                Toast.makeText(this, "No es pot cobrar una comanda activa", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -291,7 +359,7 @@ class PantallaTaula : AppCompatActivity() {
                 val elemento = producteBorrar
 
                 if (elemento != null) {
-                    // Només permetem esborrar productes que encara NO s'hagin enviat a cuina
+
                     if (elemento.idLiniaComanda == 0) {
                         // 1. L'eliminem de la llista de la sessió actual
                         productesSeleccionats.remove(elemento)

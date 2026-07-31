@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_blue"
+    android:background="@color/blau_primari"
     android:padding="24dp">
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/app_name"
-            android:textColor="@color/primary_blue"
+            android:textColor="@color/blau_primari"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="32dp"
-            android:backgroundTint="@color/primary_blue"
+            android:backgroundTint="@color/blau_primari"
             android:text="@string/login"
             android:textAllCaps="false" />
 

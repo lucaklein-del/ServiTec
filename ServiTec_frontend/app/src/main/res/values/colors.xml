@@ -2,7 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary_blue">#1E3A5F</color>
+    <color name="blau_primari">#1E3A5F</color>
+    <color name="blau_secundari">#1E3A8A</color>
     <color name="light_background">#F5F5F5</color>
     <color name="text_gray">#6C757D</color>
     <color name="taula_ocupada">#FFFF0000</color>
@@ -12,5 +13,6 @@
     <color name="taula_lliure">#1E3A8A</color>
     <color name="blauMenu">#1E3A8A</color>
     <color name="red_deleted">#FFCDD2</color>
+
 
 </resources>

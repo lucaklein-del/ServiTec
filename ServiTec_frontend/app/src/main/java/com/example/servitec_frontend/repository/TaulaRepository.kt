@@ -1,6 +1,7 @@
 package com.example.servitec_frontend.repository
 
 import android.util.Log
+import com.example.servitec_frontend.data.model.CanviarEstatDTO
 import com.example.servitec_frontend.data.model.Categoria
 import com.example.servitec_frontend.data.model.ComandaDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
@@ -100,6 +101,16 @@ class TaulaRepository {
             response.isSuccessful
         } catch (e: Exception) {
             Log.e("TaulaRepository", "Error en eliminar línia de comanda: ${e.message}")
+            false
+        }
+    }
+
+    suspend fun cambiarEstatComanda(idComanda: Int, nouEstat: String): Boolean {
+        return try {
+            val response = apiService.canviarEstatComanda(idComanda, nouEstat)
+            response.isSuccessful
+        } catch (e: Exception) {
+            Log.e("TaulaRepository", "Error canviant estat comanda", e)
             false
         }
     }
