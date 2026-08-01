@@ -26,6 +26,7 @@
         <activity android:name=".ui.PantallaPanell" android:exported="false"/>
         <activity android:name=".ui.PantallaTaula" android:exported="false"/>
         <activity android:name=".ui.PantallaCuina" android:exported="false"/>
+        <activity android:name=".ui.PantallaGerent" android:exported="false"/>
     </application>
 
 </manifest>

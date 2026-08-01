@@ -125,17 +125,17 @@ class PantallaLogin : AppCompatActivity() {
                     // 2. Comprovem el Rol per definir la destinació
                     // Accepta tant el número INT (1=Camarero, 2=Cocinero) com el nom del ROL (Enum/String)
                     val intent = when (usuario.rol.toString().lowercase()) {
-                        "cocinero", "cuiner" -> {
+                        "gerent" -> {
                             // 🍳 Enruta a la pantalla de Cocina
-                            Intent(this, PantallaCuina::class.java)
+                            Intent(this, PantallaGerent::class.java)
                         }
-                        "1", "camarero", "cabrer", "administrador" -> {
+                        "1", "camarero", "cabrer",  -> {
                             // ☕ Enruta al mapa de mesas / panel principal
                             Intent(this, PantallaPanell::class.java)
                         }
                         else -> {
                             // Per defecte, si no reconeix el rol, enviem al Panell
-                            Intent(this, PantallaPanell::class.java)
+                            Intent(this, PantallaCuina::class.java)
                         }
                     }
 
