@@ -2,20 +2,28 @@ package com.example.servitec_frontend.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.servitec_frontend.R
+import com.google.android.material.card.MaterialCardView
 
 class PantallaGerent : AppCompatActivity() {
     private lateinit var btnTancarSessio: TextView
+    private lateinit var afegirUsuari : MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pantalla_gerent)
         btnTancarSessio = findViewById(R.id.btnTancarSessio)
+        afegirUsuari = findViewById(R.id.cardAfegirUsuari)
 
         btnTancarSessio.setOnClickListener {
             tancarSessio()
+        }
+
+        afegirUsuari.setOnClickListener {
+            startActivity(Intent(this, PantallaAfegirUsuari::class.java))
         }
 
     }

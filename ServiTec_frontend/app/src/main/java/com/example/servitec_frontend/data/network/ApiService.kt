@@ -2,6 +2,7 @@ package com.example.servitec_frontend.data.network
 
 import com.example.servitec_frontend.data.model.Categoria
 import com.example.servitec_frontend.data.model.ComandaDTO
+import com.example.servitec_frontend.data.model.CrearUsuariDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
@@ -9,7 +10,7 @@ import com.example.servitec_frontend.data.model.Producte
 import com.example.servitec_frontend.data.model.ResponseComnada
 import com.example.servitec_frontend.data.model.ResponseCuina
 import com.example.servitec_frontend.data.model.Taula
-import com.example.servitec_frontend.data.model.Usuari
+import com.example.servitec_frontend.data.model.UsuariDTO
 import com.example.servitec_frontend.ui.adapter.TaulesAdapter
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -22,10 +23,13 @@ import retrofit2.http.Path
 
 interface ApiService {
     @GET("api/Usuari/llistar")
-    fun getUsuarios(): Call<List<Usuari>>
+    fun getUsuarios(): Call<List<UsuariDTO>>
+
+    @POST("api/Usuari/crear")
+    suspend fun crearUsuari(@Body dto: CrearUsuariDTO): Response<UsuariDTO>
 
     @POST("api/Usuari/login")
-    fun login(@Body request: LoginRequest): Call<Usuari>
+    fun login(@Body request: LoginRequest): Call<UsuariDTO>
 
     @GET("api/Categoria/llistar") // Asegúrate de que esta ruta coincide con tu Backend (ej: /api/categories)
     suspend fun getCategories(): Response<List<Categoria>>

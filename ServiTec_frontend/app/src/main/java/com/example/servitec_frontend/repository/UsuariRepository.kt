@@ -1,17 +1,20 @@
+package com.example.servitec_frontend.repository
+import com.example.servitec_frontend.data.model.CrearUsuariDTO
 import com.example.servitec_frontend.data.model.LoginRequest
-import com.example.servitec_frontend.data.model.Usuari
+import com.example.servitec_frontend.data.model.UsuariDTO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserRepository {
+
+class UsuariRepository {
     private val apiService = RetrofitClient.instance
 
-    fun loginUser(user: String, pass: String, onResult: (Usuari?, String?) -> Unit) {
+    fun loginUser(user: String, pass: String, onResult: (UsuariDTO?, String?) -> Unit) {
         val loginData = LoginRequest(user, pass)
 
-        apiService.login(loginData).enqueue(object : Callback<Usuari> {
-            override fun onResponse(call: Call<Usuari>, response: Response<Usuari>) {
+        apiService.login(loginData).enqueue(object : Callback<UsuariDTO> {
+            override fun onResponse(call: Call<UsuariDTO>, response: Response<UsuariDTO>) {
                 if (response.isSuccessful) {
                     onResult(response.body(), null)
                 } else {
@@ -19,9 +22,25 @@ class UserRepository {
                 }
             }
 
-            override fun onFailure(call: Call<Usuari>, t: Throwable) {
+            override fun onFailure(call: Call<UsuariDTO>, t: Throwable) {
                 onResult(null, "Error de red: ${t.message}")
             }
         })
     }
+
+
+    suspend fun crearUsuari(nouUsuari: CrearUsuariDTO): UsuariDTO? {
+        return try {
+            val response = apiService.crearUsuari(nouUsuari)
+            if (response.isSuccessful) {
+                response.body() // Devuelve el usuario creado si el servidor responde 200/201
+            } else {
+                null // Error de validación o del servidor
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
 }

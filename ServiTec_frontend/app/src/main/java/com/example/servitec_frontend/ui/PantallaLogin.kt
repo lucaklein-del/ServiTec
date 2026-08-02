@@ -17,7 +17,7 @@
 
 package com.example.servitec_frontend.ui
 
-import UserRepository
+import com.example.servitec_frontend.repository.UsuariRepository
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -69,8 +69,7 @@ import kotlin.jvm.java
 class PantallaLogin : AppCompatActivity() {
 
     /** Repositori encarregat de la comunicació amb l'API d'usuaris. */
-    private val userRepository = UserRepository()
-
+    private val userRepository = UsuariRepository()
     /**
      * Mètode del cicle de vida d'Android. Inicialitza la UI i configura
      * els listeners dels elements interactius.
