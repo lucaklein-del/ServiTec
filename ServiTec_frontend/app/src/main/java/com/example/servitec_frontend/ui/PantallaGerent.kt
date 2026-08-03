@@ -6,25 +6,39 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.servitec_frontend.R
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
 class PantallaGerent : AppCompatActivity() {
     private lateinit var btnTancarSessio: TextView
     private lateinit var afegirUsuari : MaterialCardView
+    private lateinit var afegirProducte : MaterialCardView
+    private lateinit var btnVistaCambrer: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pantalla_gerent)
         btnTancarSessio = findViewById(R.id.btnTancarSessio)
         afegirUsuari = findViewById(R.id.cardAfegirUsuari)
+        afegirProducte = findViewById(R.id.cardAfegirProducte)
+        btnVistaCambrer = findViewById(R.id.btnVistaCambrer)
 
         btnTancarSessio.setOnClickListener {
             tancarSessio()
         }
 
+        btnVistaCambrer.setOnClickListener {
+            startActivity(Intent(this, PantallaPanell::class.java))
+        }
+
         afegirUsuari.setOnClickListener {
             startActivity(Intent(this, PantallaAfegirUsuari::class.java))
         }
+
+        afegirProducte.setOnClickListener {
+            startActivity(Intent(this, PantallaAfegirProducte::class.java))
+        }
+
 
     }
     private fun tancarSessio() {

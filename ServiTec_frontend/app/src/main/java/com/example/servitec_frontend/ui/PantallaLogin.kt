@@ -128,7 +128,7 @@ class PantallaLogin : AppCompatActivity() {
                             // 🍳 Enruta a la pantalla de Cocina
                             Intent(this, PantallaGerent::class.java)
                         }
-                        "1", "camarero", "cabrer",  -> {
+                        "1", "cambrer", "camarero",  -> {
                             // ☕ Enruta al mapa de mesas / panel principal
                             Intent(this, PantallaPanell::class.java)
                         }

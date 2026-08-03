@@ -75,7 +75,7 @@
             android:focusable="true" />
     </LinearLayout>
 
-    <!-- ÁREA CENTRAL (FILAS DE 3 TARJETAS) -->
+    <!-- ÁREA CENTRAL (FILAS DE TARJETAS) -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -92,7 +92,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="24dp" />
 
-        <!-- GRID DE 8 TARJETAS EN 3 COLUMNAS -->
+        <!-- GRID DE TARJETAS EN 3 COLUMNAS -->
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +102,28 @@
 
             <!-- FILA 1: ACCIONES DE AÑADIR -->
 
-            <!-- 1. AFEGIR PRODUCTE -->
+            <!-- 1. AFEGIR CATEGORIES -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAfegirCategories"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="➕ 🏷️" android:textSize="30sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Afegir Categories" android:textColor="#1B3358" android:textSize="15sp" android:textStyle="bold" android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 2. AFEGIR PRODUCTE -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAfegirProducte"
                 android:layout_width="0dp"
@@ -123,7 +144,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 2. AFEGIR MENJADOR -->
+            <!-- 3. AFEGIR MENJADOR -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAfegirMenjador"
                 android:layout_width="0dp"
@@ -144,7 +165,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 3. AFEGIR USUARI -->
+            <!-- 4. AFEGIR USUARI -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAfegirUsuari"
                 android:layout_width="0dp"
@@ -156,7 +177,6 @@
                 app:cardBackgroundColor="@android:color/white">
 
                 <LinearLayout
-                    android:id="@+id/AfegirUsuari"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -164,7 +184,6 @@
                     android:padding="12dp">
 
                     <TextView
-                        android:id="@+id/AfegirUsuari"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="👤➕"
@@ -183,7 +202,7 @@
 
             <!-- FILA 2: MÓDULOS DE GESTIÓN -->
 
-            <!-- 4. GESTIONAR PRODUCTES -->
+            <!-- 5. GESTIONAR PRODUCTES -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardGestionarProductes"
                 android:layout_width="0dp"
@@ -204,7 +223,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 5. GESTIONAR MENJADORS -->
+            <!-- 6. GESTIONAR MENJADORS -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardGestionarMenjadors"
                 android:layout_width="0dp"
@@ -225,7 +244,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 6. GESTIONAR PERSONAL -->
+            <!-- 7. GESTIONAR PERSONAL -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardGestionarUsuaris"
                 android:layout_width="0dp"
@@ -248,7 +267,7 @@
 
             <!-- FILA 3: TRABAJO FUTURO -->
 
-            <!-- 7. INFORMES I VENDES (EN PROCÉS) -->
+            <!-- 8. INFORMES I VENDES (EN PROCÉS) -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardInformes"
                 android:layout_width="0dp"
@@ -270,7 +289,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 8. CONTROL DE STOCKS (EN PROCÉS) -->
+            <!-- 9. CONTROL DE STOCKS (EN PROCÉS) -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardStocks"
                 android:layout_width="0dp"

@@ -28,6 +28,7 @@
         <activity android:name=".ui.PantallaCuina" android:exported="false"/>
         <activity android:name=".ui.PantallaGerent" android:exported="false"/>
         <activity android:name=".ui.PantallaAfegirUsuari" android:exported="false"/>
+        <activity android:name=".ui.PantallaAfegirProducte" android:exported="false"/>
     </application>
 
 </manifest>

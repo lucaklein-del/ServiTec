@@ -64,7 +64,7 @@ namespace ServiTec.Controllers
         /// 201 Created si el producto se crea correctamente.
         /// 400 BadRequest si la categoría indicada no existe.
         /// </returns>
-        [HttpPost("guardarProducte")]
+        [HttpPost("crear")]
         public async Task<ActionResult> CrearProducte(CreateProducteDTO dto)
         {
 

@@ -12,3 +12,11 @@ data class Producte(
     val preuTotal: Double
         get() = quantitat * preu
 }
+
+data class PostProducteDTO(
+    val PostNom: String,
+    val PostDescripcio: String,
+    val PostPreu: Double,
+    val PostActiu: Boolean,
+    val PostIdCategoria: Int
+)

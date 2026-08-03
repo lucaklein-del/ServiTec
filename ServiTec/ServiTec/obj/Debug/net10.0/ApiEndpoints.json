@@ -439,6 +439,22 @@
   },
   {
     "ContainingType": "ServiTec.Controllers.ProducteController",
+    "Method": "CrearProducte",
+    "RelativePath": "api/Producte/crear",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ServiTec.Application.DTOs.CreateProducteDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ServiTec.Controllers.ProducteController",
     "Method": "Delete",
     "RelativePath": "api/Producte/eliminarProducte/{id}",
     "HttpMethod": "DELETE",
@@ -448,22 +464,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ServiTec.Controllers.ProducteController",
-    "Method": "CrearProducte",
-    "RelativePath": "api/Producte/guardarProducte",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "ServiTec.Application.DTOs.CreateProducteDTO",
         "IsRequired": true
       }
     ],

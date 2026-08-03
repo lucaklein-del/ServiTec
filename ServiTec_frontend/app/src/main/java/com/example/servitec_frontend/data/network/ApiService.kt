@@ -6,6 +6,7 @@ import com.example.servitec_frontend.data.model.CrearUsuariDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
+import com.example.servitec_frontend.data.model.PostProducteDTO
 import com.example.servitec_frontend.data.model.Producte
 import com.example.servitec_frontend.data.model.ResponseComnada
 import com.example.servitec_frontend.data.model.ResponseCuina
@@ -27,6 +28,9 @@ interface ApiService {
 
     @POST("api/Usuari/crear")
     suspend fun crearUsuari(@Body dto: CrearUsuariDTO): Response<UsuariDTO>
+
+    @POST("api/Producte/crear")
+    suspend fun crearProducte(@Body dto: PostProducteDTO): Response<Producte>
 
     @POST("api/Usuari/login")
     fun login(@Body request: LoginRequest): Call<UsuariDTO>

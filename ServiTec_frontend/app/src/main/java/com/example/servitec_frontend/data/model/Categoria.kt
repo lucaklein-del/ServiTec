@@ -5,3 +5,9 @@ data class Categoria(
     val nom: String,
     val descripcio: String?
 )
+
+data class PutCategoriaDTO(
+    val putIdCategoria: Int,
+    val putNom: String,
+    val putDescripcio: String?
+)
