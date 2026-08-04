@@ -35,6 +35,7 @@ namespace ServiTec.Application.Services
             {
                 IdProducte = p.IdProducte,
                 Nom = p.Nom,
+                Descripcio = p.Descripcio,
                 Preu = p.Preu,
                 IdCategoria = p.IdCategoria
             }).ToList();

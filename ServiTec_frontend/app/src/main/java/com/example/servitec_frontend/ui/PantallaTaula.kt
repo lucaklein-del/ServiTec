@@ -17,6 +17,8 @@ import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LiniaComandaTemporal
 import com.example.servitec_frontend.data.model.Producte
+import com.example.servitec_frontend.data.model.ProducteDTO
+import com.example.servitec_frontend.repository.ProducteRepository
 import com.example.servitec_frontend.repository.TaulaRepository
 import com.example.servitec_frontend.ui.adapter.CategoriesAdapter
 import com.example.servitec_frontend.ui.adapter.ComandaAdapter
@@ -38,8 +40,8 @@ class PantallaTaula : AppCompatActivity() {
     private lateinit var mostrarNumeroTaula: TextView
 
     private var totsElsProductes = listOf<Producte>()
-    private val repository = TaulaRepository()
-
+    private val taulaRepository = TaulaRepository()
+    private val producteRepository = ProducteRepository()
     private val historialGuardat = mutableListOf<LiniaComandaTemporal>()
     private val productesSeleccionats = mutableListOf<LiniaComandaTemporal>()
 
@@ -100,7 +102,7 @@ class PantallaTaula : AppCompatActivity() {
         // 🎇 RECUPERACIÓ DE LA COMANDA ACTIVA SI LA TAULA ESTÀ OCUPADA
         if (taulaOcupada && idTaulaActual != -1) {
             lifecycleScope.launch {
-                val comandaActiva = repository.obtenirComandaActiva(idTaulaActual)
+                val comandaActiva = taulaRepository.obtenirComandaActiva(idTaulaActual)
 
                 if (comandaActiva != null) {
                     idComandaActiva = comandaActiva.idComanda
@@ -202,7 +204,7 @@ class PantallaTaula : AppCompatActivity() {
                 }
 
                 // 3. Consultamos si la mesa ya tiene comanda activa en la BD
-                val comandaActiva = repository.obtenirComandaActiva(idTaulaActual)
+                val comandaActiva = taulaRepository.obtenirComandaActiva(idTaulaActual)
                 val idComandaActiva = comandaActiva?.idComanda ?: -1
 
                 val exit: Boolean
@@ -210,7 +212,7 @@ class PantallaTaula : AppCompatActivity() {
                 if (taulaOcupada && idComandaActiva > 0) {
                     // 🔄 MESA OCUPADA: Enviamos SOLO las nuevas líneas a la comanda existente
                     // (Las líneas anteriores ya están guardadas en la BD y NO se reenvían)
-                    val resultat = repository.afegirLinies(idComandaActiva, novesLiniesDto)
+                    val resultat = taulaRepository.afegirLinies(idComandaActiva, novesLiniesDto)
                     exit = resultat.isSuccess
                 } else {
                     // 🆕 MESA LIBRE: Creamos la comanda inicial desde cero
@@ -220,7 +222,7 @@ class PantallaTaula : AppCompatActivity() {
                         postIdUsuari = idUsuariActual,
                         postLinies = novesLiniesDto
                     )
-                    exit = repository.enviarComanda(novaComandaDto)
+                    exit = taulaRepository.enviarComanda(novaComandaDto)
                 }
 
                 // 4. Gestión del resultado
@@ -277,7 +279,7 @@ class PantallaTaula : AppCompatActivity() {
             lifecycleScope.launch {
                 btnTreureCompte.isEnabled = false
                 if (idComandaActiva >= 1) {
-                    repository.cambiarEstatComanda(idComandaActiva, "pendent")
+                    taulaRepository.cambiarEstatComanda(idComandaActiva, "pendent")
                 }
                 btnTreureCompte.isEnabled = true
             }
@@ -297,7 +299,7 @@ class PantallaTaula : AppCompatActivity() {
             if (estatComandaActiva == "pendent") {
                 lifecycleScope.launch {
                     btnCobrar.isEnabled = false
-                    val cobrado = repository.cobrarComanda(idComandaActiva)
+                    val cobrado = taulaRepository.cobrarComanda(idComandaActiva)
 
                     if (cobrado) {
                         Toast.makeText(
@@ -334,8 +336,8 @@ class PantallaTaula : AppCompatActivity() {
 
         // 4. Carga inicial de categorías y productos desde el Repositorio
         lifecycleScope.launch {
-            val categoriesBD = repository.obtenirCategories()
-            val productesBD = repository.obtenerProductos() ?: emptyList()
+            val categoriesBD = taulaRepository.obtenirCategories()
+            val productesBD = taulaRepository.obtenerProductos() ?: emptyList()
             totsElsProductes = productesBD
 
             if (categoriesBD != null) {
@@ -378,7 +380,7 @@ class PantallaTaula : AppCompatActivity() {
                         lifecycleScope.launch {
                             btnBorrar.isEnabled = false
 
-                            val exit = repository.eliminarLiniaComanda(elemento.idLiniaComanda)
+                            val exit = taulaRepository.eliminarLiniaComanda(elemento.idLiniaComanda)
 
                             if (exit) {
                                 if (elemento.quantitat == 1) {

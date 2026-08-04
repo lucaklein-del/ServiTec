@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-08-01T00:37:40.170461100Z">
+        <DropdownSelection timestamp="2026-08-04T21:33:11.299105100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Luca Klein\.android\avd\Cocina.avd" />

@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.servitec_frontend.R
 import com.example.servitec_frontend.data.model.Categoria
 import com.example.servitec_frontend.data.model.PostProducteDTO
-import com.example.servitec_frontend.repository.ProductesRepository
+import com.example.servitec_frontend.repository.ProducteRepository
 import com.example.servitec_frontend.repository.TaulaRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -28,7 +28,7 @@ class PantallaAfegirProducte : AppCompatActivity() {
     private lateinit var btnTornar: MaterialButton
     private var categories: List<Categoria> = emptyList()
 
-    private val repositoryProducte = ProductesRepository()
+    private val repositoryProducte = ProducteRepository()
     private val repositoryTaula = TaulaRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,11 +65,11 @@ class PantallaAfegirProducte : AppCompatActivity() {
                 Toast.makeText(this, "Si us plau, omple tots els camps", Toast.LENGTH_SHORT).show()
             } else {
                 val producteCrear = PostProducteDTO(
-                    PostNom = nom,
-                    PostDescripcio = desProd,
-                    PostPreu = preu,
-                    PostActiu = disponible,
-                    PostIdCategoria = idCategoria
+                    postNom = nom,
+                    postDescripcio = desProd,
+                    postPreu = preu,
+                    postActiu = disponible,
+                    postIdCategoria = idCategoria
                 )
                 lifecycleScope.launch {
                     repositoryProducte.crearProdcute(producteCrear)

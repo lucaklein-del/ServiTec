@@ -41,7 +41,6 @@
 
     public class UpdateProducteDTO
     {
-        public int PutIdProducte { get; set; }
         public string PutNom { get; set; } = null!;
         public string? PutDescripcio { get; set; }
         public decimal PutPreu { get; set; }

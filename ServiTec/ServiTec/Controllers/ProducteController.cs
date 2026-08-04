@@ -97,7 +97,7 @@ namespace ServiTec.Controllers
         /// 200 OK si la actualización se realiza correctamente.
         /// 404 NotFound si el producto no existe.
         /// </returns>
-        [HttpPut("UpdateProducteDTO/{id}")]
+        [HttpPut("actualitzar/{id}")]
         public async Task<ActionResult<Producte>> ActualitzarProducte(int id, UpdateProducteDTO dto)
         {
             var producte = await _producteService.UpdateProducteDTO(id, dto);
@@ -124,7 +124,7 @@ namespace ServiTec.Controllers
         /// 204 NoContent si la eliminación se realiza correctamente.
         /// 404 NotFound si el producto no existe.
         /// </returns>
-        [HttpDelete("eliminarProducte/{id}")]
+        [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var eliminat = await _producteService.DeleteProducte(id);

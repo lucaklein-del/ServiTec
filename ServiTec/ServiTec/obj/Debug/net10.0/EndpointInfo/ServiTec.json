@@ -855,7 +855,7 @@
         }
       }
     },
-    "/api/Producte/UpdateProducteDTO/{id}": {
+    "/api/Producte/actualitzar/{id}": {
       "put": {
         "tags": [
           "Producte"
@@ -914,7 +914,7 @@
         }
       }
     },
-    "/api/Producte/eliminarProducte/{id}": {
+    "/api/Producte/eliminar/{id}": {
       "delete": {
         "tags": [
           "Producte"
@@ -1774,6 +1774,10 @@
             "type": "string",
             "nullable": true
           },
+          "descripcio": {
+            "type": "string",
+            "nullable": true
+          },
           "preu": {
             "type": "number",
             "format": "double"
@@ -1923,10 +1927,6 @@
       "UpdateProducteDTO": {
         "type": "object",
         "properties": {
-          "putIdProducte": {
-            "type": "integer",
-            "format": "int32"
-          },
           "putNom": {
             "type": "string",
             "nullable": true

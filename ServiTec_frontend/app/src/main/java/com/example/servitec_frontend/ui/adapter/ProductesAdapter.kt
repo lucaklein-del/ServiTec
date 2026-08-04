@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.servitec_frontend.R
 import com.example.servitec_frontend.data.model.Producte
+import com.example.servitec_frontend.data.model.ProducteDTO
 
 class ProductesAdapter(
     private var llista: List<Producte>,

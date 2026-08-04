@@ -32,7 +32,6 @@ class PantallaGestionarPersonal : AppCompatActivity() {
 
     // Componentes Navegación
     private lateinit var btnTornar: MaterialButton
-    private lateinit var btnCerrarSesion: MaterialButton
 
     // Datos y Estado
     private var llistaUsuaris: List<UsuariDTO> = emptyList()
@@ -45,7 +44,6 @@ class PantallaGestionarPersonal : AppCompatActivity() {
 
         // Inicializar vistas de navegación
         btnTornar = findViewById(R.id.btnTornar)
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesion)
 
         // Inicializar vistas - Eliminar
         autoCompleteEliminarUsuari = findViewById(R.id.autoCompleteEliminarUsuari)
@@ -61,7 +59,7 @@ class PantallaGestionarPersonal : AppCompatActivity() {
         btnGuardarCanvis = findViewById(R.id.btnGuardarCanvis)
 
         // Configurar opciones del desplegable de Roles
-        val rolsDisponibles = arrayOf("Cambrer", "Cuiner", "Gerent", "Administrador")
+        val rolsDisponibles = arrayOf("Cambrer", "Cuiner", "Gerent")
         val adapterRols = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, rolsDisponibles)
         spinnerEditRol.setAdapter(adapterRols)
 
@@ -102,7 +100,6 @@ class PantallaGestionarPersonal : AppCompatActivity() {
             } else {
                 btnGuardarCanvis.isEnabled = false
 
-                // Crear copia de UsuariDTO con los nuevos datos
                 val usuariModificat = PutUsuariDTO(
                     PutNomUsuari = nom,
                     PutContrasenya = contrasenya,
@@ -150,10 +147,6 @@ class PantallaGestionarPersonal : AppCompatActivity() {
 
 
         btnTornar.setOnClickListener {
-            finish()
-        }
-
-        btnCerrarSesion.setOnClickListener {
             finish()
         }
     }

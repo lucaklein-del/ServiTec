@@ -30,6 +30,7 @@
         <activity android:name=".ui.PantallaAfegirUsuari" android:exported="false"/>
         <activity android:name=".ui.PantallaAfegirProducte" android:exported="false"/>
         <activity android:name=".ui.PantallaGestionarPersonal" android:exported="false"/>
+        <activity android:name=".ui.PantallaGestionarProductes" android:exported="false"/>
     </application>
 
 </manifest>

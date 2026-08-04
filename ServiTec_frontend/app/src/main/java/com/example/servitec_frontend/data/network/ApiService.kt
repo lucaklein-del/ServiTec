@@ -8,6 +8,8 @@ import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
 import com.example.servitec_frontend.data.model.PostProducteDTO
 import com.example.servitec_frontend.data.model.Producte
+import com.example.servitec_frontend.data.model.ProducteDTO
+import com.example.servitec_frontend.data.model.PutProducteDTO
 import com.example.servitec_frontend.data.model.PutUsuariDTO
 import com.example.servitec_frontend.data.model.ResponseComnada
 import com.example.servitec_frontend.data.model.ResponseCuina
@@ -46,10 +48,18 @@ interface ApiService {
     @POST("api/Producte/crear")
     suspend fun crearProducte(@Body dto: PostProducteDTO): Response<Producte>
 
+    @DELETE("api/Producte/eliminar/{id}")
+    suspend fun eliminarProducte(@Path("id") idProducte: Int): Response<ResponseBody>
 
     // NUEVO: Obtener todos los productos
     @GET("api/Producte/Llistar") // Asegúrate de que esta ruta coincide con tu Backend (ej: /api/productes)
-    suspend fun getProducts(): Response<List<Producte>>
+    suspend fun obtenirProductes(): Response<List<ProducteDTO>>
+
+   @GET("api/Producte/Llistar") // Asegúrate de que esta ruta coincide con tu Backend (ej: /api/productes)
+   suspend fun getProducts(): Response<List<Producte>>
+
+    @PUT("api/Producte/actualitzar/{id}")
+    suspend fun actualitzarProducte(@Path("id") idProducte: Int, @Body dto: PutProducteDTO): Response<ProducteDTO>
 
     @GET("api/Taula/llistar")
     suspend fun obtenirTaules(): Response<List<Taula>>

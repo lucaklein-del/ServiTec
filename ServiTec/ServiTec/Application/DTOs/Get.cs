@@ -43,6 +43,7 @@ namespace ServiTec.Application.DTOs
     {
         public int IdProducte { get; set; }
         public string Nom { get; set; }
+        public string Descripcio { get; set; }
         public decimal Preu { get; set; }
         public int IdCategoria { get; set; }
     }
