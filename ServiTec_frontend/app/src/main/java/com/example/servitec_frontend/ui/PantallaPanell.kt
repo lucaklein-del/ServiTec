@@ -1,8 +1,11 @@
 package com.example.servitec_frontend.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -14,6 +17,7 @@ import kotlinx.coroutines.launch
 class PantallaPanell : AppCompatActivity() {
 
     private val repository = TaulaRepository()
+    private lateinit var btnDireccio : TextView
     private val mapaBotonesMesa = mapOf(
         2 to R.id.taula2,
         4 to R.id.taula4,
@@ -26,6 +30,19 @@ class PantallaPanell : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pantalla_panell)
+
+        btnDireccio = findViewById(R.id.btnDireccio)
+        val prefs = getSharedPreferences("ServiTecPrefs", Context.MODE_PRIVATE)
+        val userRol = prefs.getString("rolUsuari", "") ?: ""
+        val esAdmin = prefs.getBoolean("esAdmin", false)
+
+        val esGerentOAdmin = userRol.equals("Gerent", ignoreCase = true) || esAdmin
+
+        btnDireccio.visibility = if (esGerentOAdmin) View.VISIBLE else View.GONE
+
+        btnDireccio.setOnClickListener {
+            finish()
+        }
 
         val btnCerrarSesion = findViewById<View>(R.id.btnCerrarSesion)
         btnCerrarSesion.setOnClickListener {

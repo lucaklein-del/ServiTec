@@ -5,8 +5,17 @@ data class UsuariDTO(
     val idUsuari: Int,
     val nomUsuari: String,
     val contrasenya: String,
+    val actiu: Boolean,
     val admin: Boolean,
     val rol: String
+)
+
+data class PutUsuariDTO(
+    val PutNomUsuari : String,
+    val PutContrasenya : String,
+    val PutActiu : Boolean,
+    val PutAdmin : Boolean,
+    val PutRol : String
 )
 
 data class CrearUsuariDTO(

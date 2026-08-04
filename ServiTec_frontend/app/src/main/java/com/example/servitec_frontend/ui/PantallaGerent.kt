@@ -14,6 +14,7 @@ class PantallaGerent : AppCompatActivity() {
     private lateinit var afegirUsuari : MaterialCardView
     private lateinit var afegirProducte : MaterialCardView
     private lateinit var btnVistaCambrer: MaterialButton
+    private lateinit var gestionarUsuaris : MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +23,7 @@ class PantallaGerent : AppCompatActivity() {
         afegirUsuari = findViewById(R.id.cardAfegirUsuari)
         afegirProducte = findViewById(R.id.cardAfegirProducte)
         btnVistaCambrer = findViewById(R.id.btnVistaCambrer)
+        gestionarUsuaris = findViewById(R.id.cardGestionarUsuaris)
 
         btnTancarSessio.setOnClickListener {
             tancarSessio()
@@ -39,6 +41,9 @@ class PantallaGerent : AppCompatActivity() {
             startActivity(Intent(this, PantallaAfegirProducte::class.java))
         }
 
+        gestionarUsuaris.setOnClickListener {
+            startActivity(Intent(this, PantallaGestionarPersonal::class.java))
+        }
 
     }
     private fun tancarSessio() {

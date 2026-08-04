@@ -1973,10 +1973,6 @@
       "UpdateUsuariDTO": {
         "type": "object",
         "properties": {
-          "putIdUsuari": {
-            "type": "integer",
-            "format": "int32"
-          },
           "putNomUsuari": {
             "type": "string",
             "nullable": true

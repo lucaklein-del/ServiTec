@@ -29,6 +29,7 @@
         <activity android:name=".ui.PantallaGerent" android:exported="false"/>
         <activity android:name=".ui.PantallaAfegirUsuari" android:exported="false"/>
         <activity android:name=".ui.PantallaAfegirProducte" android:exported="false"/>
+        <activity android:name=".ui.PantallaGestionarPersonal" android:exported="false"/>
     </application>
 
 </manifest>

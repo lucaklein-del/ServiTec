@@ -6,31 +6,29 @@
     android:orientation="horizontal"
     android:background="#F4F5F7">
 
-    <!-- 🟦 COLUMNA LATERAL AZUL (Igual que en el resto de la app) -->
+    <!-- COLUMNA LATERAL AZUL (Ajustada a 240dp como el resto de la app) -->
     <LinearLayout
-        android:layout_width="220dp"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:background="#1B3B6F"
+        android:background="@color/blau_primari"
         android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Servi Tec"
+            android:text="ServiTec"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:text="Panell de cuina"
             android:textColor="#A0B2C6"
             android:textSize="12sp" />
-
-        <!-- Botón activo de Cocina -->
 
         <!-- Espacio flexible para empujar el Cerrar Sesión abajo -->
         <View
@@ -41,30 +39,31 @@
         <!-- Botón Cerrar Sesión -->
         <TextView
             android:id="@+id/btnCerrarSesion"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:text="← Tancar sesió"
+            android:padding="12dp"
+            android:text="← Tancar Sessió"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- ⬜ PANEL CENTRAL: Lista horizontal / Grid de Comandas de Cocina -->
+    <!-- PANEL CENTRAL: Lista horizontal / Grid de Comandas de Cocina -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="20dp"
             android:text="Comandes Actives"
-            android:textColor="#1B3B6F"
-            android:textSize="20sp"
+            android:textColor="@color/blau_primari"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <!-- RecyclerView para scroll horizontal de tarjetas de comandas -->

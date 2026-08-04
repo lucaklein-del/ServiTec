@@ -106,24 +106,25 @@ class PantallaLogin : AppCompatActivity() {
             val user = etUser.text.toString()
             val pass = etPass.text.toString()
 
-            userRepository.loginUser(user, pass) { usuario, error ->
-                if (usuario != null) {
+            userRepository.loginUser(user, pass) { usuari, error ->
+                if (usuari != null) {
                     Toast.makeText(
                         this,
-                        "Hola, ${usuario.nomUsuari}",
+                        "Hola, ${usuari.nomUsuari}",
                         Toast.LENGTH_SHORT
                     ).show()
 
                     // 1. Desem l'ID de l'usuari i el seu rol a les SharedPreferences
                     sharedPreferences.edit {
-                        putInt("idUsuari", usuario.idUsuari)
+                        putInt("idUsuari", usuari.idUsuari)
                         // Mantenim registre del rol si es necessita a posteriori
-                        putString("rolUsuari", usuario.rol.toString())
+                        putString("rolUsuari", usuari.rol.toString())
+                        putBoolean("esAdmin", usuari.admin)
                     }
 
                     // 2. Comprovem el Rol per definir la destinació
                     // Accepta tant el número INT (1=Camarero, 2=Cocinero) com el nom del ROL (Enum/String)
-                    val intent = when (usuario.rol.toString().lowercase()) {
+                    val intent = when (usuari.rol.toString().lowercase()) {
                         "gerent" -> {
                             // 🍳 Enruta a la pantalla de Cocina
                             Intent(this, PantallaGerent::class.java)

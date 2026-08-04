@@ -51,7 +51,6 @@
 
     public class UpdateUsuariDTO
         {
-            public int PutIdUsuari { get; set; }
             public string PutNomUsuari { get; set; } = null!;
             public string PutContrasenya { get; set; } = null!;
             public bool PutActiu { get; set; }

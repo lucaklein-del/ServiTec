@@ -8,6 +8,7 @@ import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
 import com.example.servitec_frontend.data.model.PostProducteDTO
 import com.example.servitec_frontend.data.model.Producte
+import com.example.servitec_frontend.data.model.PutUsuariDTO
 import com.example.servitec_frontend.data.model.ResponseComnada
 import com.example.servitec_frontend.data.model.ResponseCuina
 import com.example.servitec_frontend.data.model.Taula
@@ -17,6 +18,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -24,29 +26,36 @@ import retrofit2.http.Path
 
 interface ApiService {
     @GET("api/Usuari/llistar")
-    fun getUsuarios(): Call<List<UsuariDTO>>
+   suspend fun llistarUsuari(): Response<List<UsuariDTO>>
 
     @POST("api/Usuari/crear")
     suspend fun crearUsuari(@Body dto: CrearUsuariDTO): Response<UsuariDTO>
 
-    @POST("api/Producte/crear")
-    suspend fun crearProducte(@Body dto: PostProducteDTO): Response<Producte>
-
     @POST("api/Usuari/login")
     fun login(@Body request: LoginRequest): Call<UsuariDTO>
 
+    @DELETE("api/Usuari/eliminar/{id}")
+    suspend fun eliminarUsuari(@Path("id") idUsuari: Int): Response<ResponseBody>
+
+    @PUT("api/Usuari/actualitzar/{id}")
+    suspend fun actualitzarUsuari(@Path("id") idUsuariDTO: Int, @Body dto: PutUsuariDTO): Response<UsuariDTO>
+
     @GET("api/Categoria/llistar") // Asegúrate de que esta ruta coincide con tu Backend (ej: /api/categories)
     suspend fun getCategories(): Response<List<Categoria>>
+
+    @POST("api/Producte/crear")
+    suspend fun crearProducte(@Body dto: PostProducteDTO): Response<Producte>
+
 
     // NUEVO: Obtener todos los productos
     @GET("api/Producte/Llistar") // Asegúrate de que esta ruta coincide con tu Backend (ej: /api/productes)
     suspend fun getProducts(): Response<List<Producte>>
 
-    @POST("api/Comanda/crear") // Ajusta la ruta exacta si en tu C# el controlador no se llama así
-    suspend fun crearComanda(@Body dto: CreateComandaDTO): Response<ResponseBody>
-
     @GET("api/Taula/llistar")
     suspend fun obtenirTaules(): Response<List<Taula>>
+
+    @POST("api/Comanda/crear") // Ajusta la ruta exacta si en tu C# el controlador no se llama así
+    suspend fun crearComanda(@Body dto: CreateComandaDTO): Response<ResponseBody>
 
     @GET("api/Comanda/activa/{id}")
     suspend fun obtenirComandaActiva(@Path("id") idMesa: Int): Response<ResponseComnada>

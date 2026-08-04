@@ -7,69 +7,98 @@
     android:orientation="horizontal"
     android:background="#F8F9FA">
 
+    <!-- COLUMNA IZQUIERDA UNIFICADA (240dp) -->
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:background="@color/blau_primari"
         android:orientation="vertical"
         android:padding="20dp">
 
+        <!-- TÍTULO -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Servi Tec"
-            android:textColor="@color/white"
+            android:text="ServiTec"
+            android:textColor="@android:color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:text="Panell de control"
-            android:textColor="#A0FFFFFF"
-            android:textSize="12sp" />
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Panell de control"
+            android:textColor="#9EAEC7"
+            android:textSize="12sp" />
+
+        <!-- BOTÓN SALA (ACTIVO) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSala"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="8dp"
             android:text="SALA"
-            android:background="@drawable/bg_button_selected"
-            android:textColor="@color/white"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical" />
+            android:textAlignment="textStart"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:backgroundTint="#3B82F6"
+            app:cornerRadius="12dp" />
 
-        <TextView
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="12dp"
+        <!-- BOTÓN TERRASSA (INACTIVO) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTerrassa"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="8dp"
             android:text="TERRASSA"
-            android:textColor="#A0FFFFFF" />
+            android:textAlignment="textStart"
+            android:textColor="#9EAEC7"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
-        <Space
+        <!-- BOTÓN DIRECCIÓ (INACTIVO) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDireccio"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="DIRECCIÓ"
+            android:textAlignment="textStart"
+            android:textColor="#9EAEC7"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <!-- ESPACIADOR FLEXIBLE -->
+        <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <TextView
+        <!-- TANCAR SESSIÓ -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCerrarSesion"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="12dp"
             android:text="← Tancar Sessió"
-            android:textColor="@color/white" />
+            android:textAlignment="textStart"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
     </LinearLayout>
 
+    <!-- ÁREA PRINCIPAL DE CONTENIDO -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Leyenda de colores de mesas -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,7 +123,13 @@
                 android:layout_height="12dp"
                 android:layout_marginEnd="8dp"
                 android:background="@color/taula_ocupada2" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ocupada" android:layout_marginEnd="20dp" android:textSize="12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ocupada"
+                android:layout_marginEnd="20dp"
+                android:textSize="12sp"/>
 
             <View
                 android:layout_width="12dp"
@@ -109,6 +144,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
+        <!-- Layout de distribución de las mesas -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutSalon"
             android:layout_width="match_parent"
