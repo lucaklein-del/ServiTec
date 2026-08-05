@@ -101,16 +101,16 @@ class PantallaGestionarPersonal : AppCompatActivity() {
                 btnGuardarCanvis.isEnabled = false
 
                 val usuariModificat = PutUsuariDTO(
-                    PutNomUsuari = nom,
-                    PutContrasenya = contrasenya,
-                    PutRol = rol,
-                    PutActiu = actiu,
-                    PutAdmin = admin
+                    putNomUsuari = nom,
+                    putContrasenya = contrasenya,
+                    putRol = rol,
+                    putActiu = actiu,
+                    putAdmin = admin
                 )
 
                 lifecycleScope.launch {
-                    val exito = repositoryUsuari.actualitzarUsuari(usuari.idUsuari, usuariModificat)
-                    if (exito) {
+                    val exit = repositoryUsuari.actualitzarUsuari(usuari.idUsuari, usuariModificat)
+                    if (exit) {
                         Toast.makeText(this@PantallaGestionarPersonal, "Usuari $nom actualitzat correctament", Toast.LENGTH_SHORT).show()
                         netejarFormulari()
                         carregarUsuaris()

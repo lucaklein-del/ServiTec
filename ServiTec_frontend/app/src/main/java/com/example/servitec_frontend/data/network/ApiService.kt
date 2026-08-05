@@ -6,9 +6,11 @@ import com.example.servitec_frontend.data.model.CrearUsuariDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
+import com.example.servitec_frontend.data.model.PostCategoriaDTO
 import com.example.servitec_frontend.data.model.PostProducteDTO
 import com.example.servitec_frontend.data.model.Producte
 import com.example.servitec_frontend.data.model.ProducteDTO
+import com.example.servitec_frontend.data.model.PutCategoriaDTO
 import com.example.servitec_frontend.data.model.PutProducteDTO
 import com.example.servitec_frontend.data.model.PutUsuariDTO
 import com.example.servitec_frontend.data.model.ResponseComnada
@@ -42,8 +44,14 @@ interface ApiService {
     @PUT("api/Usuari/actualitzar/{id}")
     suspend fun actualitzarUsuari(@Path("id") idUsuariDTO: Int, @Body dto: PutUsuariDTO): Response<UsuariDTO>
 
-    @GET("api/Categoria/llistar") // Asegúrate de que esta ruta coincide con tu Backend (ej: /api/categories)
+    @GET("api/Categoria/llistar")
     suspend fun getCategories(): Response<List<Categoria>>
+
+    @POST ("api/Categoria/crear")
+    suspend fun crearCategoria(@Body dto: PostCategoriaDTO): Response<Categoria>
+
+    @PUT("api/Categoria/actualitzar/{id}")
+    suspend fun actualitzarCategoria(@Path("id") idCategoria: Int, @Body dto: PutCategoriaDTO): Response<Categoria>
 
     @POST("api/Producte/crear")
     suspend fun crearProducte(@Body dto: PostProducteDTO): Response<Producte>
@@ -52,10 +60,10 @@ interface ApiService {
     suspend fun eliminarProducte(@Path("id") idProducte: Int): Response<ResponseBody>
 
     // NUEVO: Obtener todos los productos
-    @GET("api/Producte/Llistar") // Asegúrate de que esta ruta coincide con tu Backend (ej: /api/productes)
+    @GET("api/Producte/Llistar")
     suspend fun obtenirProductes(): Response<List<ProducteDTO>>
 
-   @GET("api/Producte/Llistar") // Asegúrate de que esta ruta coincide con tu Backend (ej: /api/productes)
+   @GET("api/Producte/Llistar")
    suspend fun getProducts(): Response<List<Producte>>
 
     @PUT("api/Producte/actualitzar/{id}")
@@ -64,7 +72,7 @@ interface ApiService {
     @GET("api/Taula/llistar")
     suspend fun obtenirTaules(): Response<List<Taula>>
 
-    @POST("api/Comanda/crear") // Ajusta la ruta exacta si en tu C# el controlador no se llama así
+    @POST("api/Comanda/crear")
     suspend fun crearComanda(@Body dto: CreateComandaDTO): Response<ResponseBody>
 
     @GET("api/Comanda/activa/{id}")

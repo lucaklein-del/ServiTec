@@ -32,7 +32,8 @@ using ServiTec.Domain.Models;
             return Categorias.Select(p => new CategoriaDTO
             {
                 IdCategoria = p.IdCategoria,
-                Nom = p.Nom
+                Nom = p.Nom,
+                Descripcio = p.Descripcio
             }).ToList();
         }
 
@@ -59,7 +60,6 @@ using ServiTec.Domain.Models;
 
             Categoria.Nom = dto.PutNom;
             Categoria.Descripcio = dto.PutDescripcio;
-            Categoria.IdCategoria = dto.PutIdCategoria;
 
             await _repository.Update(Categoria);
 

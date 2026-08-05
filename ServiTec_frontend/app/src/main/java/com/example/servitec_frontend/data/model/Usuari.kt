@@ -11,11 +11,11 @@ data class UsuariDTO(
 )
 
 data class PutUsuariDTO(
-    val PutNomUsuari : String,
-    val PutContrasenya : String,
-    val PutActiu : Boolean,
-    val PutAdmin : Boolean,
-    val PutRol : String
+    @SerializedName("PutNomUsuari") val putNomUsuari : String,
+    @SerializedName("PutContrasenya") val putContrasenya : String,
+    @SerializedName("PutActiu") val putActiu : Boolean,
+    @SerializedName("PutAdmin") val putAdmin : Boolean,
+    @SerializedName("PutRol") val putRol : String
 )
 
 data class CrearUsuariDTO(

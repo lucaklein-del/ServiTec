@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F5F7"
+    android:orientation="horizontal">
+
+    <!-- COLUMNA IZQUIERDA UNIFICADA (240dp) -->
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:background="@color/blau_primari"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ServiTec"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Panell de Direcció"
+            android:textColor="#9EAEC7"
+            android:textSize="12sp" />
+
+        <!-- BOTÓN TORNAR AL PANELL -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTornar"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="← TORNAR AL PANELL"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- TANCAR SESSIÓ -->
+
+    </LinearLayout>
+
+    <!-- ÁREA CENTRAL (GESTIÓN DE CATEGORÍAS) -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp">
+
+            <!-- CABECERA -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📁 Gestió de Categories"
+                android:textColor="#1B3358"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                android:text="Afegeix noves categories o modifica el nom i la descripció de les existents."
+                android:textColor="#64748B"
+                android:textSize="14sp" />
+
+            <!-- DISPOSICIÓN EN 2 COLUMNAS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- BLOQUE 1: AÑADIR CATEGORÍA -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="➕ Afegir Categoria"
+                            android:textColor="#1B3358"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:text="Crea una nova categoria per organitzar els productes."
+                            android:textColor="#64748B"
+                            android:textSize="13sp" />
+
+                        <!-- NOM NOVA CATEGORIA -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:hint="Nom de la categoria">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etNovaCatNom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- DESCRIPCIÓ NOVA CATEGORIA -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:hint="Descripció (opcional)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etNovaCatDescripcio"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textMultiLine"
+                                android:maxLines="3" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- BOTÓN CREAR -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCrearCategoria"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="Crear Categoria"
+                            android:textColor="@android:color/white"
+                            app:backgroundTint="#10B981"
+                            app:cornerRadius="10dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- BLOQUE 2: MODIFICAR CATEGORÍA -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✏️ Modificar Categoria"
+                            android:textColor="#1B3358"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="Cerca una categoria per carregar i modificar les seves dades."
+                            android:textColor="#64748B"
+                            android:textSize="13sp" />
+
+                        <!-- BUSCADOR PREDICTIVO CATEGORIA -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:hint="Selecciona la categoria a editar...">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/autoCompleteEditarCategoria"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:completionThreshold="1"
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- FORMULARIO DE EDICIÓN -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- NOM CATEGORIA -->
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:hint="Nom de la categoria">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etEditCatNom"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="text" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <!-- DESCRIPCIÓ CATEGORIA -->
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:hint="Descripció">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etEditCatDescripcio"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textMultiLine"
+                                    android:maxLines="3" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <!-- BOTÓN GUARDAR -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnGuardarCanvisCategoria"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:text="Guardar Canvis"
+                                android:textColor="@android:color/white"
+                                app:backgroundTint="#3B82F6"
+                                app:cornerRadius="10dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

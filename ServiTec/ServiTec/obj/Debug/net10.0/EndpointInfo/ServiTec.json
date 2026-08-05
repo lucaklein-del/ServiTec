@@ -1845,10 +1845,6 @@
       "UpdateCategoriaDTO": {
         "type": "object",
         "properties": {
-          "putIdCategoria": {
-            "type": "integer",
-            "format": "int32"
-          },
           "putNom": {
             "type": "string",
             "nullable": true

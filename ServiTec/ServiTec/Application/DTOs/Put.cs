@@ -32,8 +32,6 @@
 
     public class UpdateCategoriaDTO
     {
-        public int PutIdCategoria { get; set; }
-
         public string PutNom { get; set; } = null!;
 
         public string? PutDescripcio { get; set; }

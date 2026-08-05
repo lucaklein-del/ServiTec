@@ -120,7 +120,15 @@
                     android:orientation="vertical"
                     android:padding="12dp">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="➕ 🏷️" android:textSize="30sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Afegir Categories" android:textColor="#1B3358" android:textSize="15sp" android:textStyle="bold" android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Afegir i Editar Categories"
+                        android:textColor="#1B3358"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

@@ -1,16 +1,23 @@
 package com.example.servitec_frontend.repository
 
 import android.util.Log
+import android.util.Log.e
 import com.example.servitec_frontend.data.model.CanviarEstatDTO
 import com.example.servitec_frontend.data.model.Categoria
 import com.example.servitec_frontend.data.model.ComandaDTO
+import com.example.servitec_frontend.data.model.CrearUsuariDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
+import com.example.servitec_frontend.data.model.PostCategoriaDTO
 import com.example.servitec_frontend.data.model.Producte
+import com.example.servitec_frontend.data.model.PutCategoriaDTO
+import com.example.servitec_frontend.data.model.PutUsuariDTO
 import com.example.servitec_frontend.data.model.ResponseComnada
 import com.example.servitec_frontend.data.model.Taula
+import com.example.servitec_frontend.data.model.UsuariDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class TaulaRepository {
 
@@ -39,6 +46,27 @@ class TaulaRepository {
             }
         }
     }
+
+    suspend fun crearCategoria(nomCategoria: PostCategoriaDTO): Boolean {
+        return try {
+            val response = apiService.crearCategoria(nomCategoria)
+            response.isSuccessful
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    suspend fun actualitzarCategoria(idCategoria: Int, categoria: PutCategoriaDTO): Boolean {
+        return try {
+            val response = apiService.actualitzarCategoria(idCategoria, categoria)
+            response.isSuccessful
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
     suspend fun obtenerProductos(): List<Producte>? {
         return withContext(Dispatchers.IO) {
             try {
@@ -52,15 +80,11 @@ class TaulaRepository {
 
     suspend fun enviarComanda(dto: CreateComandaDTO): Boolean {
         return try {
-            // Asumo que tienes una instancia de la API llamada 'apiService' o similar dentro del repositorio
-            // Reemplaza 'apiService' por el nombre de la variable que uses para llamar a Retrofit
             val response = apiService.crearComanda(dto)
-
-            // Si el servidor devuelve un código de éxito (como el 201 Created que pusiste en C#)
             response.isSuccessful
         } catch (e: Exception) {
             e.printStackTrace()
-            false // Si hay un error de red, devolvemos un 'false' para controlarlo en la interfaz
+            false
         }
     }
 
