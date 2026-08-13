@@ -26,6 +26,7 @@ builder.Services.AddScoped<UsuariService>();
 builder.Services.AddScoped<TaulaService>();
 builder.Services.AddScoped<CategoriaService>();
 builder.Services.AddScoped<ComandaService>();
+builder.Services.AddScoped<MenjadorService>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 

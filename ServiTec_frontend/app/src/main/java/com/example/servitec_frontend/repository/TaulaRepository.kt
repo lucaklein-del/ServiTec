@@ -8,7 +8,9 @@ import com.example.servitec_frontend.data.model.ComandaDTO
 import com.example.servitec_frontend.data.model.CrearUsuariDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
+import com.example.servitec_frontend.data.model.Menjador
 import com.example.servitec_frontend.data.model.PostCategoriaDTO
+import com.example.servitec_frontend.data.model.PostMenjadorDTO
 import com.example.servitec_frontend.data.model.Producte
 import com.example.servitec_frontend.data.model.PutCategoriaDTO
 import com.example.servitec_frontend.data.model.PutUsuariDTO
@@ -136,6 +138,34 @@ class TaulaRepository {
         } catch (e: Exception) {
             Log.e("TaulaRepository", "Error canviant estat comanda", e)
             false
+        }
+    }
+
+    suspend fun crearMenjador(nouMenjador: PostMenjadorDTO): Menjador? {
+        return try {
+            val response = apiService.crearMenjador(nouMenjador)
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    suspend fun llistarMenjador(): List<Menjador>? {
+        return try {
+            val response = apiService.llistarMenjador()
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

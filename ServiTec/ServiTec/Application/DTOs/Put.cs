@@ -68,4 +68,10 @@
         }
     }
 
+    public class UpdateMenjadorDTO
+    {
+        public string PutNomMenjador { get; set; } = null!;
+        public bool PutActiu { get; set; }
+    }
+
 }

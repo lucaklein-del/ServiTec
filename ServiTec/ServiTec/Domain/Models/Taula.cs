@@ -13,5 +13,13 @@ public partial class Taula
 
     public bool Estat { get; set; }
 
+    public int IdMenjador { get; set; }
+
+    public double PosX { get; set; } = 0;
+
+    public double PosY { get; set; } = 0;
+
     public virtual ICollection<Comanda> Comanda { get; set; } = new List<Comanda>();
+
+    public virtual Menjador IdMenjadorNavigation { get; set; } = null!;
 }

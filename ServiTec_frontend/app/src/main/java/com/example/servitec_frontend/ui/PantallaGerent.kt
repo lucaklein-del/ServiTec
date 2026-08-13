@@ -17,6 +17,7 @@ class PantallaGerent : AppCompatActivity() {
     private lateinit var gestionarUsuaris : MaterialCardView
     private lateinit var gestinarProdcutes : MaterialCardView
     private lateinit var afegirCategories : MaterialCardView
+    private lateinit var afegirMenjador : MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,7 @@ class PantallaGerent : AppCompatActivity() {
         gestionarUsuaris = findViewById(R.id.cardGestionarUsuaris)
         gestinarProdcutes = findViewById(R.id.cardGestionarProductes)
         afegirCategories = findViewById(R.id.cardAfegirCategories)
+        afegirMenjador = findViewById(R.id.cardAfegirMenjador)
 
         btnTancarSessio.setOnClickListener {
             tancarSessio()
@@ -55,6 +57,10 @@ class PantallaGerent : AppCompatActivity() {
 
         afegirCategories.setOnClickListener {
             startActivity(Intent(this, PantallaAfegirCategoria::class.java))
+        }
+
+        afegirMenjador.setOnClickListener {
+            startActivity(Intent(this, PantallaAfegirMenjador::class.java))
         }
 
     }

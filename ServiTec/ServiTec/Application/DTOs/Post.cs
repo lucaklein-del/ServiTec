@@ -55,10 +55,18 @@ namespace ServiTec.Application.DTOs
     public class CreateTaulaDTO
     {
         public int PostNumero { get; set; }
-
         public int PostCapacitat { get; set; }
-
         public bool PostEstat { get; set; }
         public string? PostEstatComanda { get; set; }
+        public int PostIdMenjador { get; set; }
+        public int PostPosX { get; set; }
+        public int PostPosY { get; set; }
+    }
+
+    public class CreateMenjadorDTO
+    {
+        public string PostNomMenjador { get; set; } = null!;
+        public bool PostActiu { get; set; }
+        public List<CreateTaulaDTO> PostTaules { get; set; } = new List<CreateTaulaDTO>();
     }
 }

@@ -29,6 +29,7 @@ public partial class ServiTecDbContext : DbContext
     public virtual DbSet<Taula> Taules { get; set; }
 
     public virtual DbSet<Usuari> Usuaris { get; set; }
+    public virtual DbSet<Menjador> Menjadors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -167,6 +168,13 @@ public partial class ServiTecDbContext : DbContext
                 .HasColumnName("estat");
 
             entity.Property(e => e.Numero).HasColumnName("numero");
+
+            entity.Property(e => e.IdMenjador).HasColumnName("idMenjador");
+
+            entity.HasOne(d => d.IdMenjadorNavigation).WithMany(p => p.Taula)
+                .HasForeignKey(d => d.IdMenjador)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Taula_Menjador");
         });
 
         modelBuilder.Entity<Usuari>(entity =>
@@ -188,6 +196,22 @@ public partial class ServiTecDbContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("nomUsuari");
+        });
+
+        modelBuilder.Entity<Menjador>(entity =>
+        {
+            entity.HasKey(e => e.IdMenjador).HasName("PK_Menjador");
+
+            entity.ToTable("Menjador");
+
+            entity.Property(e => e.IdMenjador).HasColumnName("idMenjador");
+            entity.Property(e => e.NomMenjador)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("nomMenjador");
+            entity.Property(e => e.Actiu)
+                .HasDefaultValue(true)
+                .HasColumnName("actiu");
         });
 
         OnModelCreatingPartial(modelBuilder);

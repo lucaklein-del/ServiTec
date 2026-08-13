@@ -6,7 +6,9 @@ import com.example.servitec_frontend.data.model.CrearUsuariDTO
 import com.example.servitec_frontend.data.model.CreateComandaDTO
 import com.example.servitec_frontend.data.model.CreateLiniaComandaDTO
 import com.example.servitec_frontend.data.model.LoginRequest
+import com.example.servitec_frontend.data.model.Menjador
 import com.example.servitec_frontend.data.model.PostCategoriaDTO
+import com.example.servitec_frontend.data.model.PostMenjadorDTO
 import com.example.servitec_frontend.data.model.PostProducteDTO
 import com.example.servitec_frontend.data.model.Producte
 import com.example.servitec_frontend.data.model.ProducteDTO
@@ -95,6 +97,12 @@ interface ApiService {
 
     @PUT("api/Comanda/linia/{idLinia}/eliminar")
     suspend fun eliminarLiniaComanda(@Path("idLinia") idLinia: Int): Response<ResponseBody>
+
+    @GET("api/Menjador/llistar")
+    suspend fun llistarMenjador(): Response<List<Menjador>>
+
+    @POST("api/Menjador/crear")
+    suspend fun crearMenjador(@Body dto: PostMenjadorDTO): Response<Menjador>
 }
 
 

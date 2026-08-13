@@ -7,88 +7,85 @@
     android:orientation="horizontal"
     android:background="#F8F9FA">
 
-    <!-- COLUMNA IZQUIERDA UNIFICADA (240dp) -->
-    <LinearLayout
+    <!-- COLUMNA IZQUIERDA -->
+    <RelativeLayout
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:background="@color/blau_primari"
-        android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- TÍTULO -->
-        <TextView
+        <!-- 1. CABECERA (ARRIBA) -->
+        <LinearLayout
+            android:id="@+id/headerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ServiTec"
-            android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ServiTec"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Panell de control"
+                android:textColor="#9EAEC7"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- 2. BLOQUE INFERIOR (PEGADO ABAJO DEL TODO) -->
+        <LinearLayout
+            android:id="@+id/bottomContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Panell de control"
-            android:textColor="#9EAEC7"
-            android:textSize="12sp" />
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
-        <!-- BOTÓN SALA (ACTIVO) -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSala"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDireccio"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DIRECCIÓ"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCerrarSesion"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="← Tancar Sessió"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- 3. LISTA DINÁMICA DE MENJADORS (OCUPA EL ESPACIO CENTRAL) -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginBottom="8dp"
-            android:text="SALA"
-            android:textAlignment="textStart"
-            android:textColor="@android:color/white"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:backgroundTint="#3B82F6"
-            app:cornerRadius="12dp" />
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomContainer"
+            android:layout_below="@id/headerContainer"
+            android:fillViewport="true">
 
-        <!-- BOTÓN TERRASSA (INACTIVO) -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTerrassa"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginBottom="8dp"
-            android:text="TERRASSA"
-            android:textAlignment="textStart"
-            android:textColor="#9EAEC7"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/containerMenjadors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
 
-        <!-- BOTÓN DIRECCIÓ (INACTIVO) -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDireccio"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="DIRECCIÓ"
-            android:textAlignment="textStart"
-            android:textColor="#9EAEC7"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-        <!-- ESPACIADOR FLEXIBLE -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <!-- TANCAR SESSIÓ -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCerrarSesion"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="← Tancar Sessió"
-            android:textAlignment="textStart"
-            android:textColor="@android:color/white"
-            android:textSize="13sp" />
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <!-- ÁREA PRINCIPAL DE CONTENIDO -->
     <LinearLayout
@@ -144,99 +141,12 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Layout de distribución de las mesas -->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!-- Layout dinámico de distribución de las mesas (CAMBIADO A RELATIVELAYOUT) -->
+        <RelativeLayout
             android:id="@+id/layoutSalon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:backgroundTint="#05000000">
+            android:background="#FFFFFF" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/taula2"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="432dp"
-                android:layout_marginTop="148dp"
-                android:background="@drawable/bg_taula_8pax"
-                android:text="Taula 10\n(8 Pax)"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/taula4"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="52dp"
-                android:background="@drawable/bg_taula_4pax"
-                android:text="Taula 11\n(4 Pax)"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.916"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/taula5"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/bg_taula_4pax"
-                android:text="Taula 12\n(4 Pax)"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/taula6"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="432dp"
-                android:layout_marginTop="404dp"
-                android:background="@drawable/bg_taula_6pax"
-                android:text="Taula 13\n(6 Pax)"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/taula7"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="72dp"
-                android:layout_marginTop="500dp"
-                android:background="@drawable/bg_taula_2pax"
-                android:text="Taula 14\n(2 Pax)"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/taula8"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="760dp"
-                android:layout_marginTop="512dp"
-                android:background="@drawable/bg_taula_2pax"
-                android:text="Taula 15\n(2 Pax)"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </LinearLayout>

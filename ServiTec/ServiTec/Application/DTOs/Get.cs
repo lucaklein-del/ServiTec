@@ -69,6 +69,9 @@ namespace ServiTec.Application.DTOs
 
         public bool Estat { get; set; }
         public string? EstatComanda { get; set; }
+        public int IdMenjador { get; set; }
+        public double PosX { get; set; }
+        public double PosY { get; set; }
     }
 
     public class ComandaCuinaDTO
@@ -89,4 +92,11 @@ namespace ServiTec.Application.DTOs
         public string NomProducte { get; set; } = null!;
     }
 
+    public class MenjadorDTO
+    {
+        public int IdMenjador { get; set; }
+        public string NomMenjador { get; set; } = null!;
+        public bool Actiu { get; set; }
+        public List<TaulaDTO> Taules { get; set; } = new();
+    }
 }
